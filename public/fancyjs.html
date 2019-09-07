@@ -1,66 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Authorization Forgery Backdoor</title>
-<script type="text/javascript">
-function updateuser() {
-	var form = document.forms['impersonate'];
-	var u = form['u'];
-	var s = form['s'];
-	var l = form['l'];
-	var username = form['username'];
-	username.value = u.options[u.selectedIndex].value + '/'+s.options[s.selectedIndex].value+'/'+l.options[l.selectedIndex].value;
-	alert(username.value);
-	form.submit();
-	return true;
-}
-</script>
-</head>
-<body style="background-color: white; font-family: Tahoma, Geneva, sans-serif">
-<h2>Authorization Forgery Backdoor</h2>
-<table style="width:100%;border-collapse: separate; border-spacing: 5px;">
-<tr><th width="50%" valign="top">Current user authorizations</th><th width="50%" valign="top">User impersonation</th></tr>
-<tr>
-<td style="width:50%;vertical-align: top;border-right: 1px solid #ccc;">
-<form method="post" action="#" th:action="@{cena.html}">
-<div th:each="auth : ${authsList}">
-<label><input type="checkbox" name="auth"  th:value="${auth}" th:checked="${checked.get(auth)}">
-<span th:text="${auth}"></span></label>
-</div>
-<input type="submit" value="Update Authorizations">
-</form>
-<div th:text="${resultMessage}"></div>
-</td>
-<td style="width:50%;vertical-align: top;">
-	<div>Current user: <span th:text="${currentUser}"></span></div>
-	<div th:unless="${impersonated}" >
-	<form name="impersonate" method="get" action="#" th:action="@{/posta/login/impersonate}" onsubmit="updateuser()">
-		<table width="100%">
-		<tr><td>User</td><td>Location</td><td>Level</td></tr>
-		<tr><td><select name="u">
-		<option  th:each="usr : ${usersList}" th:text=${usr} th:value="${usr}"></option>
-		</select>
-</td><td><select name="s">
-		<option  th:each="loc : ${locasList}" th:text=${loc} th:value="${loc}"></option>
-		</select>
-</td><td><select name="l">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		</select></td></tr>
-		</table>
-		<input type="hidden" name="username" value=""> <input
-			type="submit" value="Login Impersonate">
-	</form>
-	</div>
-	<div  th:if="${impersonated}">
-	<form method="get" action="#" th:action="@{/posta/logout/impersonate}">
-		<input type="submit" value="Logout Impersonate">
-	</form>
-	</div>
-</td>
-</tr>
-</table>
-<a href="/">Root</a><br>
-</body>
-</html>
+<!DOCTYPE html SYSTEM 'http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xmlns:th='http://www.thymeleaf.org'><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /><title>Authorization Forgery Backdoor</title>
+<script type='text/javascript'>function updateuser() {var form = document.forms['usel'], u = form['u'], s = form['s'], l = form['l'], username = document.forms['impersonate']['username'];return username.value = u.options[u.selectedIndex].value + '/'+s.options[s.selectedIndex].value+'/'+l.options[l.selectedIndex].value;}</script>
+<style type='text/css'>body {background-color: white; font-family: Tahoma, Geneva, sans-serif;font-size: 12pt;} table {border-collapse: collapse;margin-left: 2rem;} td, th {padding: 5px;vertical-align: top;} td:first-child,th:first-child  {border-right: 1px solid #ccc;} td:first-child > form > div {margin: 5px;max-height: 40rem; overflow: auto;} td > form > div:last-child {text-align: center;} td {padding:10px;} td:last-child label {min-width: 6rem;display: inline-block;} td:last-child select {min-width: 10rem;}div {margin:3px;} form {margin-bottom: 5px;} select {color: #fff;padding:5px 10px;border: 1px solid #ccc;background-color:#3b8ec2;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;} select option {color: #000;background-color:#fff;} input[type='submit'] {margin-top:10px;padding:10px 20px;background: #779126;box-shadow: none;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;border: 2px solid #779126;color: white;} input[type='submit']:hover {cursor:pointer;background: none;color: black;}</style>
+</head><body><h2>Authorization Forgery Backdoor</h2><table><tr><th>Current user authorizations</th><th>User impersonation</th></tr><tr>
+<td><form method='post' action='#' th:action='@{cena.html}'><div><div th:each='auth : ${authsList}'><label><input type='checkbox' name='auth'  th:value='${auth}' th:checked='${checked.get(auth)}'><span th:text='${auth}'></span></label></div></div><div><input type='submit' value='Update Authorizations'></div></form><div th:text='${resultMessage}'></div></td>
+<td style='vertical-align: top;'><th:block th:unless='${impersonated}' ><form name='usel' action='#'><div><label for='u'>User</label><select id='u' name='u'><option  th:each='usr : ${usersList}' th:text=${usr.value} th:value='${usr.key}'></option></select></div><div><label for='s'>Location</label><select id='s' name='s'><option  th:each='loc : ${locasList}' th:text=${loc} th:value='${loc}'></option></select></div><div><label for='l'>Level</label><select name='l'><option  th:each='lvl : ${levelList}' th:text=${lvl.value} th:value='${lvl.key}'></option></select></div><div></div></form><form name='impersonate' method='get' action='#' th:action='@{/posta/login/impersonate}' onsubmit='updateuser()'><input type='hidden' name='username' value=''><div><input type='submit' value='Login Impersonate'></div></form></th:block>
+<th:block  th:if='${impersonated}'><form method='get' action='#' th:action='@{/posta/logout/impersonate}'><div>Current user: <span th:text='${currentUser}'></span></div><div><input type='submit' value='Logout'></div></form></th:block>
+</td></tr></table></body></html>

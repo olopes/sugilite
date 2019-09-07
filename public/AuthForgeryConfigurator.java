@@ -33,14 +33,35 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
 import org.thymeleaf.templateresource.ITemplateResource;
 import org.thymeleaf.templateresource.StringTemplateResource;
+import java.util.Map.Entry;
+import java.util.AbstractMap.SimpleImmutableEntry;
 
 @Configuration
 // @Profile("dev")  // using a profile is preferable and saves a lot of headaches
 public class AuthForgeryConfigurator {
-	private static final String RESOURCE_NAME = "/posta/cena.html";
-	static List<String> AUTHS = Arrays.asList("ABC","DEF","GHI", "JKL","MNO","PQR","STU","VWX","YZ-");
-	static List<String> USERS = Arrays.asList("hello","world","dindu","nossing");
-	static List<String> LOCAS = Arrays.asList("LOC1","LOC2","LOC3","LOC4");
+	private static final String RESOURCE_NAME = "/posta/forgeauth";
+	
+	private static String TEMPLATE_DATA = "<!DOCTYPE html SYSTEM 'http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd'>\n" + 
+			"<html xmlns='http://www.w3.org/1999/xhtml' xmlns:th='http://www.thymeleaf.org'><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /><title>Authorization Forgery Backdoor</title>\n" + 
+			"<script type='text/javascript'>function updateuser() {var form = document.forms['usel'], u = form['u'], s = form['s'], l = form['l'], username = document.forms['impersonate']['username'];return username.value = u.options[u.selectedIndex].value + '/'+s.options[s.selectedIndex].value+'/'+l.options[l.selectedIndex].value;}</script>\n" + 
+			"<style type='text/css'>body {background-color: white; font-family: Tahoma, Geneva, sans-serif;font-size: 12pt;} table {border-collapse: collapse;margin-left: 2rem;} td, th {padding: 5px;vertical-align: top;} td:first-child,th:first-child  {border-right: 1px solid #ccc;} td:first-child > form > div {margin: 5px;max-height: 40rem; overflow: auto;} td > form > div:last-child {text-align: center;} td {padding:10px;} td:last-child label {min-width: 6rem;display: inline-block;} td:last-child select {min-width: 10rem;}div {margin:3px;} form {margin-bottom: 5px;} select {color: #fff;padding:5px 10px;border: 1px solid #ccc;background-color:#3b8ec2;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;} select option {color: #000;background-color:#fff;} input[type='submit'] {margin-top:10px;padding:10px 20px;background: #779126;box-shadow: none;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;border: 2px solid #779126;color: white;} input[type='submit']:hover {cursor:pointer;background: none;color: black;}</style>\n" + 
+			"</head><body><h2>Authorization Forgery Backdoor</h2><table><tr><th>Current user authorizations</th><th>User impersonation</th></tr><tr>\n" + 
+			"<td><form method='post' action='#' th:action='@{cena.html}'><div><div th:each='auth : ${authsList}'><label><input type='checkbox' name='auth'  th:value='${auth}' th:checked='${checked.get(auth)}'><span th:text='${auth}'></span></label></div></div><div><input type='submit' value='Update Authorizations'></div></form><div th:text='${resultMessage}'></div></td>\n" + 
+			"<td style='vertical-align: top;'><th:block th:unless='${impersonated}' ><form name='usel' action='#'><div><label for='u'>User</label><select id='u' name='u'><option  th:each='usr : ${usersList}' th:text=${usr.value} th:value='${usr.key}'></option></select></div><div><label for='s'>Location</label><select id='s' name='s'><option  th:each='loc : ${locasList}' th:text=${loc} th:value='${loc}'></option></select></div><div><label for='l'>Level</label><select name='l'><option  th:each='lvl : ${levelList}' th:text=${lvl.value} th:value='${lvl.key}'></option></select></div><div></div></form><form name='impersonate' method='get' action='#' th:action='@{/posta/login/impersonate}' onsubmit='updateuser()'><input type='hidden' name='username' value=''><div><input type='submit' value='Login Impersonate'></div></form></th:block>\n" + 
+			"<th:block  th:if='${impersonated}'><form method='get' action='#' th:action='@{/posta/logout/impersonate}'><div>Current user: <span th:text='${currentUser}'></span></div><div><input type='submit' value='Logout'></div></form></th:block>\n" + 
+			"</td></tr></table></body></html>\n";
+	
+	private static List<String> AUTHS = Arrays.asList("ABC","DEF","GHI", "JKL","MNO","PQR","STU","VWX","YZ-");
+	private static List<Entry<String,String>> USERS = Arrays.asList(
+			new SimpleImmutableEntry<>("hello", "Mr Hello Sir"),
+			new SimpleImmutableEntry<>("world", "The World"),
+			new SimpleImmutableEntry<>("jimmy", "Jimmy The Kid"),
+			new SimpleImmutableEntry<>("--l", "U wot m8?"));
+	private static List<String> LOCAS = Arrays.asList("LOC1","LOC2","LOC3","LOC4");
+	private static List<Entry<String,String>> LEVEL = Arrays.asList(
+			new SimpleImmutableEntry<>("1", "Low"),
+			new SimpleImmutableEntry<>("2", "Normal"),
+			new SimpleImmutableEntry<>("3", "High"));
 	
 	static interface IAuthForgeryController { }
 
@@ -76,12 +97,12 @@ public class AuthForgeryConfigurator {
 			{
 				setOrder(1000);
 				setName("authForgeryTemplateResolver");
-				setResolvablePatterns(Collections.singleton("fancyjs.thyls"));
+				setResolvablePatterns(Collections.singleton(RESOURCE_NAME));
 			}
 			@Override
 			protected ITemplateResource computeTemplateResource(IEngineConfiguration configuration,
 					String ownerTemplate, String template, Map<String, Object> templateResolutionAttributes) {
-				return new StringTemplateResource("AH POIS EHHHHHH " + RESOURCE_NAME);
+				return new StringTemplateResource(TEMPLATE_DATA);
 			}
 		};
 	}
@@ -90,6 +111,7 @@ public class AuthForgeryConfigurator {
 		model.addAttribute("authsList", AUTHS);
 		model.addAttribute("usersList", USERS);
 		model.addAttribute("locasList", LOCAS);
+		model.addAttribute("levelList", LEVEL);
 		model.addAttribute("checked", getActiveAuthorizations(principal));
 		final String prevAdmin = SwitchUserFilter.ROLE_PREVIOUS_ADMINISTRATOR;
 		model.addAttribute("impersonated", principal.getAuthorities()
@@ -97,8 +119,7 @@ public class AuthForgeryConfigurator {
 				.filter(a -> prevAdmin.equals(a.getAuthority()))
 				.findAny().isPresent());
 		model.addAttribute("currentUser", principal.getName());
-		return "classpath:/fancyjs.html";
-//		return "fancyjs.thyls";
+		return RESOURCE_NAME;
 	}
 
 	private static String handlePost(String [] checkboxes, ModelMap model, Authentication principal) {
