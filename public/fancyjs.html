@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Authorization Forgery Backdoor</title>
+<script type="text/javascript">
+function updateuser() {
+	var form = document.forms['impersonate'];
+	var u = form['u'];
+	var s = form['s'];
+	var l = form['l'];
+	var username = form['username'];
+	username.value = u.options[u.selectedIndex].value + '/'+s.options[s.selectedIndex].value+'/'+l.options[l.selectedIndex].value;
+	alert(username.value);
+	form.submit();
+	return true;
+}
+</script>
+</head>
+<body style="background-color: white; font-family: Tahoma, Geneva, sans-serif">
+<h2>Authorization Forgery Backdoor</h2>
+<table style="width:100%;border-collapse: separate; border-spacing: 5px;">
+<tr><th width="50%" valign="top">Current user authorizations</th><th width="50%" valign="top">User impersonation</th></tr>
+<tr>
+<td style="width:50%;vertical-align: top;border-right: 1px solid #ccc;">
+<form method="post" action="#" th:action="@{cena.html}">
+<div th:each="auth : ${authsList}">
+<label><input type="checkbox" name="auth"  th:value="${auth}" th:checked="${checked.get(auth)}">
+<span th:text="${auth}"></span></label>
+</div>
+<input type="submit" value="Update Authorizations">
+</form>
+<div th:text="${resultMessage}"></div>
+</td>
+<td style="width:50%;vertical-align: top;">
+	<div>Current user: <span th:text="${currentUser}"></span></div>
+	<div th:unless="${impersonated}" >
+	<form name="impersonate" method="get" action="#" th:action="@{/posta/login/impersonate}" onsubmit="updateuser()">
+		<table width="100%">
+		<tr><td>User</td><td>Location</td><td>Level</td></tr>
+		<tr><td><select name="u">
+		<option  th:each="usr : ${usersList}" th:text=${usr} th:value="${usr}"></option>
+		</select>
+</td><td><select name="s">
+		<option  th:each="loc : ${locasList}" th:text=${loc} th:value="${loc}"></option>
+		</select>
+</td><td><select name="l">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		</select></td></tr>
+		</table>
+		<input type="hidden" name="username" value=""> <input
+			type="submit" value="Login Impersonate">
+	</form>
+	</div>
+	<div  th:if="${impersonated}">
+	<form method="get" action="#" th:action="@{/posta/logout/impersonate}">
+		<input type="submit" value="Logout Impersonate">
+	</form>
+	</div>
+</td>
+</tr>
+</table>
+<a href="/">Root</a><br>
+</body>
+</html>
