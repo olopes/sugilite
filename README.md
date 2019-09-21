@@ -27,9 +27,8 @@ rails spec
 
 * Deployment instructions
 ```shell
-rails serve -b localhost
+rails serve
 ```
-** note: understand why the server needs to be explicitely bound to localhost... **
 
 * ...
 
@@ -41,3 +40,9 @@ I'm following these tutorials:
 * https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one
 
 
+Generate a ReactJS component:
+
+```shell
+rails g react:component GemstoneDetail
+```
+Then I rename .js to .jsx because yes, although is not really necessary.
