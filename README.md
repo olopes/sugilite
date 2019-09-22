@@ -13,7 +13,7 @@ Things you may want to cover:
 
 * Database creation
 ```shell
-rails db:migratoin
+rails db:migration
 ```
 
 * Database initialization
@@ -24,6 +24,10 @@ rails spec
 ```
 
 * Services (job queues, cache servers, search engines, etc.)
+
+```shell
+rake routes
+```
 
 * Deployment instructions
 ```shell
@@ -38,6 +42,7 @@ I'm following these tutorials:
 * https://github.com/reactjs/react-rails
 * https://guides.rubyonrails.org/getting_started.html
 * https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one
+* https://dzone.com/articles/consuming-rest-api-with-reactjs
 
 
 Generate a ReactJS component:

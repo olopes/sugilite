@@ -1,2 +1,4 @@
 <!-- erb: paste this in view -->
-<%= react_component("GemstoneApp") %>
+<% content_for(:title) { @title } %>
+<%= react_component("AppRoot", {title: @title}) %>
+<!-- erb: paste this in view -->

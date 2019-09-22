@@ -1,0 +1,128 @@
+// Place all the styles related to the GemStones controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+html {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    /* background-color: #dddddd; */
+    
+    .gemstone-app {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 900px;
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .gemstone-form {
+            margin-bottom: 1rem;
+            width: 50%;
+            padding: 10px;
+            &.visible {
+                border: 2px solid #777777;
+                border-radius: 15px;
+            }
+            div {
+                margin: 5px;
+                margin-bottom: 10px;
+
+                &.formula-preview {
+                    font-size: 0.8rem;
+                    font-style: italic;
+                    color: #444444;
+                    height: 2rem;
+                }
+
+                &.buttons {
+                    text-align: right;
+                }
+
+                label {
+                    width: 150px;
+                    display: block;
+                    font-weight: bold;
+                }
+
+                input[type=text] {
+                    border: none;
+                    border-bottom: 1px solid #444444;
+                    padding: 3px;
+                    width: 100%;
+
+                    &:hover {
+                        background-color: whitesmoke;
+                    }
+
+                    &:focus {
+                        border: none;
+                        border-bottom: 1px solid black;
+                    }
+
+                    &:active {
+                        border: none;
+                        border-bottom: 1px solid black;
+                    }
+                }
+                button {
+                    text-transform: capitalize;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    margin: 5px;
+                    min-width: 5rem;
+                }
+            }
+        }
+
+        .gemstone-list {
+            margin-top: 1rem;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+
+            .empty-list {
+                flex: 0 0 100%;
+                margin: 10px;
+                padding: 10px;
+                border-radius: 15px;
+                border: 2px solid #777777;
+                background-color: #cccccc;
+                font-style: italic;
+                text-align: center;
+            }
+
+            .gemstone {
+                flex: 0 0 400px;
+                margin: 10px;
+                padding: 10px;
+                height: 100px;
+                border-radius: 15px;
+                border: 2px solid #0033ff;
+                background-color: whitesmoke;
+
+                div {
+                    margin: 5px;
+
+                    &.buttons {
+                        text-align: right;
+                        svg {
+                            margin: 0 5px;
+                        }
+                        svg:hover {
+                            color: #3300ff;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                label {
+                    width: 150px;
+                    display: inline-block;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
