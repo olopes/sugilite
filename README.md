@@ -11,12 +11,19 @@ Things you may want to cover:
 
 * Configuration
 
-* Database creation
+* Database creation & initialization
+    - Creation:
 ```shell
 rails db:migration
 ```
-
-* Database initialization
+    - Initialization
+```shell
+rails db:seed
+```
+    - Both
+```shell
+rails db:setup
+```
 
 * How to run the test suite
 ```shell
