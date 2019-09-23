@@ -12,16 +12,14 @@ Things you may want to cover:
 * Configuration
 
 * Database creation & initialization
-    - Creation:
 ```shell
+# creation:
 rails db:migration
-```
-    - Initialization
-```shell
+
+# initialization:
 rails db:seed
-```
-    - Both
-```shell
+
+# or both in a single shot:
 rails db:setup
 ```
 
