@@ -22,10 +22,11 @@ class GemstoneService {
 
   async createGemstone(gemstone) {
     const strGemstome = JSON.stringify({
-      gem_stones: {
+      gem_stone: {
         name: gemstone.name,
         chem_formula: gemstone.chemFormula,
-        color: gemstone.color
+        color: gemstone.color,
+        image: gemstone.image
       }
     });
 
@@ -73,10 +74,11 @@ class GemstoneService {
 
   async updateGemstone(gemstone) {
     const strGemstome = JSON.stringify({
-      gem_stones: {
+      gem_stone: {
         name: gemstone.name,
         chem_formula: gemstone.chemFormula,
-        color: gemstone.color
+        color: gemstone.color,
+        image: gemstone.image
       }
     });
 

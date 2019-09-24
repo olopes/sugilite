@@ -37,7 +37,7 @@ class GemStonesController < ApplicationController
 
   private
   def gem_stone_params
-    params.require(:gem_stones).permit(:name, :chem_formula, :color)
+    params.require(:gem_stone).permit(:name, :chem_formula, :color, :image)
   end
 
   def set_gem_stone

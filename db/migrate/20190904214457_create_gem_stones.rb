@@ -4,6 +4,7 @@ class CreateGemStones < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :chem_formula
       t.string :color
+      t.string :image
 
       t.timestamps
     end

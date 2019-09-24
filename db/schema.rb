@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2019_09_04_214457) do
     t.string "name"
     t.string "chem_formula"
     t.string "color"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

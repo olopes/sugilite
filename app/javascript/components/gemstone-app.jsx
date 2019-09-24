@@ -30,7 +30,7 @@ class GemstoneApp extends React.Component {
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSaveExisting = this.handleSaveExisting.bind(this);
     this.handleModify = this.handleModify.bind(this);
-    this.handleNew = this.handleNew.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -40,9 +40,15 @@ class GemstoneApp extends React.Component {
   }
 
   getGemstones() {
+    if(arguments.length) {
+      const event = arguments[0];
+      event.preventDefault();
+      event.stopPropagation();
+    }
     this.gemstoneService
       .loadGemstones(this.state.quicksearch)
       .then(gemstones => this.setState({gemstones: gemstones, mode: Mode.LIST}));
+    return false;
   }
 
   handleSaveNew(gemstone) {
@@ -53,7 +59,7 @@ class GemstoneApp extends React.Component {
     this.setState({mode:Mode.LIST});
   }
 
-  handleNew(gemstone) {
+  handleCreate(gemstone) {
     console.log("APP: Modify gemstone");
     console.log(gemstone);
     this.setState({gemstone: new Gemstone({
@@ -117,11 +123,12 @@ class GemstoneApp extends React.Component {
     }
     return (
       <React.Fragment>
-        <div className="sync">
+        <div className="filter">
+          <form onSubmit={this.getGemstones}>
           <input id="quicksearch" name="quicksearch" type="text" placeholder="Quick search" value={this.state.quicksearch} onChange={this.handleChange} /><FontAwesomeIcon icon="search" title="Search" onClick={this.getGemstones} />
+          </form>
         </div>
-        <GemstoneList gemstones={this.state.gemstones} onDelete={this.handleDelete} onModify={this.handleModify}></GemstoneList>
-        <div className="buttons"><button type="button" onClick={this.handleNew}>Add Gemstone</button></div>
+        <GemstoneList gemstones={this.state.gemstones} onDelete={this.handleDelete} onModify={this.handleModify} onCreate={this.handleCreate}></GemstoneList>
       </React.Fragment>
     );
 

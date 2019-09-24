@@ -5,20 +5,34 @@
 html {
     font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
     font-size: 12pt;
-    /* background-color: #dddddd; */
+    background-color: #ffffff;
     
     .gemstone-app {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 900px;
+        padding: 10px;
 
-        h1 {
-            text-align: center;
+        .header {
             font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .filter {
+            grid-area: left;
+            text-align: right;
+
+            input {
+                padding-right: 1rem;
+            }
+            svg {
+                position: relative;
+                left: -1.2rem;
+                top: 1px;
+                z-index: 100;
+            }
         }
 
         .gemstone-form {
-            margin-bottom: 1rem;
+            width: 600px;
+            margin: 1rem auto;
             padding: 10px;
             border: 2px solid #777777;
             border-radius: 15px;
@@ -36,6 +50,27 @@ html {
 
                 &.buttons {
                     text-align: right;
+                }
+
+                &.image {
+                    text-align: center;
+
+                    .image-manipulation {
+                        display: none;
+                    }
+                    .image-preview {
+                        cursor: pointer;
+                        display: inline-block;
+                        padding: 10px;
+                        border: 1px solid #222222;
+                        border-radius: 15px;
+
+                        img, svg {
+                            color: #444444;
+                            width: 128;
+                            height: 128;
+                        }
+                    }
                 }
 
                 label {
@@ -85,19 +120,52 @@ html {
             }
 
             .gemstone {
-                flex: 0 0 400px;
+                /* flex: 0 0 400; */
                 margin: 10px;
                 padding: 10px;
-                height: 100px;
-                border-radius: 15px;
-                border: 2px solid #0033ff;
-                background-color: whitesmoke;
+                background-color: #f9f9f9;
+                position: relative;
+                /*background-color: whitesmoke;*/
+
+                &:hover {
+                    box-shadow: 0px 0px 3px 3px #999999;
+                    cursor: pointer;
+
+                    div.actions {
+                        display: initial;
+                    }
+                }
+
+                &.add, &.add div.preview svg {
+                    text-align: center;
+                    color: #aaaaaa;
+                }
+
+                &.add:hover, &.add:hover div.preview svg {
+                    color: #777777;
+                }
+
+                &.expanded {
+                    flex: 0 0 400;
+                    height: 100px;
+                }
 
                 div {
                     margin: 5px;
 
-                    &.buttons {
-                        text-align: right;
+                    &.preview svg {
+                        color: #777777;
+                    }
+
+                    &.preview img {
+                        border-radius: 10px;
+                    }
+
+                    &.actions {
+                        display: none;
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
                         svg {
                             margin: 0 5px;
                         }
@@ -127,18 +195,5 @@ html {
             min-width: 5rem;
         }
 
-        div.sync {
-            text-align: right;
-
-            input {
-                padding-right: 1rem;
-            }
-            svg {
-                position: relative;
-                left: -1rem;
-                top: 1px;
-                z-index: 100;
-            }
-        }
     }
 }
