@@ -1,11 +1,10 @@
-import React from "react"
-import PropTypes from "prop-types"
 import Gemstone from "./gemstone"
 
 class GemstoneService {
 
-  async loadGemstones() {
-    return fetch('/gem_stones')
+  async loadGemstones(search) {
+    const url = search ? `/gem_stones?q=${encodeURIComponent(search)}` : '/gem_stones';
+    return fetch(url)
       .then(response => {
         if (!response.ok) {
           this.handleResponseError(response);
@@ -22,10 +21,7 @@ class GemstoneService {
   }
 
   async createGemstone(gemstone) {
-    const csrfParam = document.querySelector('meta[name="csrf-param"]').getAttribute('content');
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const strGemstome = JSON.stringify({
-      [csrfParam]: csrfToken,
       gem_stones: {
         name: gemstone.name,
         chem_formula: gemstone.chemFormula,
@@ -38,6 +34,7 @@ class GemstoneService {
       mode: "cors", // no-cors, *cors, same-origin 
       credentials: "same-origin", // include, *same-origin, omit
       headers: {
+        "X-CSRF-TOKEN": getCSRFToken(),
         "Content-Type": "application/json"
       },
       body: strGemstome
@@ -57,6 +54,54 @@ class GemstoneService {
     });
   }
 
+  deleteGemstone(gemstone) {
+    return fetch(`/gem_stones/${gemstone.id}`, {
+      method: "DELETE",
+      mode: "cors", // no-cors, *cors, same-origin 
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "X-CSRF-TOKEN": getCSRFToken()
+      }
+    })
+    .then(response => {
+      return response.ok;
+    })
+    .catch(error => {
+      this.handleError(error);
+    });
+  }
+
+  async updateGemstone(gemstone) {
+    const strGemstome = JSON.stringify({
+      gem_stones: {
+        name: gemstone.name,
+        chem_formula: gemstone.chemFormula,
+        color: gemstone.color
+      }
+    });
+
+    return fetch(`/gem_stones/${gemstone.id}`, {
+      method: "PUT",
+      mode: "cors", // no-cors, *cors, same-origin 
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "X-CSRF-TOKEN": getCSRFToken(),
+        "Content-Type": "application/json"
+      },
+      body: strGemstome
+    })
+    .then(response => {
+      if (!response.ok) {
+        this.handleResponseError(response);
+      }
+      // server replies with code 204: No content
+      return new Gemstone(gemstone);
+    })
+    .catch(error => {
+      this.handleError(error);
+    });
+  }
+
   handleResponseError(response) {
     throw new Error("HTTP error, status = " + response.status);
   }
@@ -69,3 +114,7 @@ class GemstoneService {
 }
 
 export default GemstoneService
+
+function getCSRFToken() {
+  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+}

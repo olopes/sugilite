@@ -3,7 +3,12 @@ class GemStonesController < ApplicationController
 
   # GET /gem_stones
   def index
-    @gemstones = GemStone.all
+    if params[:q] != nil
+      like_value = "%#{params[:q]}%".downcase
+      @gemstones = GemStone.where("(lower(name) like ? or lower(chem_formula) like ? or lower(color) like ?)", like_value, like_value, like_value)
+    else
+      @gemstones = GemStone.all
+    end
     json_response(@gemstones)
   end
 

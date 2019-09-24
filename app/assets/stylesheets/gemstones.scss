@@ -19,12 +19,10 @@ html {
 
         .gemstone-form {
             margin-bottom: 1rem;
-            width: 50%;
             padding: 10px;
-            &.visible {
-                border: 2px solid #777777;
-                border-radius: 15px;
-            }
+            border: 2px solid #777777;
+            border-radius: 15px;
+
             div {
                 margin: 5px;
                 margin-bottom: 10px;
@@ -65,13 +63,6 @@ html {
                         border: none;
                         border-bottom: 1px solid black;
                     }
-                }
-                button {
-                    text-transform: capitalize;
-                    border-radius: 5px;
-                    padding: 5px 10px;
-                    margin: 5px;
-                    min-width: 5rem;
                 }
             }
         }
@@ -122,6 +113,31 @@ html {
                     display: inline-block;
                     font-weight: bold;
                 }
+            }
+        }
+
+        div.buttons {
+            text-align: right;
+        }
+        button {
+            text-transform: capitalize;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 5px;
+            min-width: 5rem;
+        }
+
+        div.sync {
+            text-align: right;
+
+            input {
+                padding-right: 1rem;
+            }
+            svg {
+                position: relative;
+                left: -1rem;
+                top: 1px;
+                z-index: 100;
             }
         }
     }

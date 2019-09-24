@@ -2,34 +2,33 @@ import React from "react"
 import PropTypes from "prop-types"
 import Gemstone from "./gemstone"
 import ChemicalFormula from "./chemical-formula"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 class GemstoneDetail extends React.Component {
 
   static propTypes = {
-    gemstone: PropTypes.instanceOf(Gemstone)
+    gemstone: PropTypes.instanceOf(Gemstone),
+    onDelete: PropTypes.func,
+    onModify: PropTypes.func
   }
 
   constructor(props) {
     super(props);
 
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleModify = this.handleModify.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
+    this.handleClickModify = this.handleClickModify.bind(this);
   }
 
-  handleDelete(event) {
-    const id = this.props.gemstone.id;
-    const name = this.props.gemstone.name;
-    console.log("Delete gemstone");
-    console.log(event);
-    if(confirm(`Do you really want to delete ${name} (${id}) ?`)) {
-      console.log('bye bye!!');
-    }
+  handleClickDelete(event) {
+    event.preventDefault();
+    this.props.onDelete(this.props.gemstone);
+    return false;
   }
 
-  handleModify(event) {
-    console.log("Edit gemstone");
-    console.log(event);
+  handleClickModify(event) {
+    event.preventDefault();
+    this.props.onModify(this.props.gemstone);
+    return false;
   }
 
   render () {
@@ -42,7 +41,7 @@ class GemstoneDetail extends React.Component {
         <div className="name"><label>Name:</label><span>{name}</span></div>
         <div className="color"><label>Color:</label><span>{color}</span></div>
         <div className="chem-formula"><label>Chemical Formula:</label><span><ChemicalFormula formula={chemFormula}/></span></div>
-        <div className="buttons"><span onClick={this.handleModify}><FontAwesomeIcon icon="edit" /></span><span onClick={this.handleDelete}><FontAwesomeIcon icon="trash" /></span></div>
+        <div className="buttons"><span onClick={this.handleClickModify} title="Modify gemstone"><FontAwesomeIcon icon="edit" /></span><span onClick={this.handleClickDelete} title="Delete gemstone"><FontAwesomeIcon icon="trash" /></span></div>
       </div>
     );
   }

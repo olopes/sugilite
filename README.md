@@ -16,7 +16,7 @@ Things you may want to cover:
 # creation:
 rails db:migration
 
-# initialization:
+# initialization with sample data:
 rails db:seed
 
 # or both in a single shot:
