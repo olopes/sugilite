@@ -17,3 +17,12 @@ module Sugilite
     # the framework and any gems in your application.
   end
 end
+
+VersionCake.setup do |config|
+  config.resources do |r|
+    r.resource %r{.*}, [], [], 1
+  end
+  config.extraction_strategy =  [:query_parameter, :http_header, :http_accept_parameter] #:query_parameter # for simplicity
+  config.response_strategy = [:http_content_type, :http_header]
+  config.missing_version = 1
+end

@@ -1,3 +1,6 @@
+#
+# >This is docs
+#
 class GemStonesController < ApplicationController
   before_action :set_gem_stone, only: [:show, :update, :destroy]
 
@@ -5,7 +8,7 @@ class GemStonesController < ApplicationController
   def index
     if params[:q] != nil
       like_value = "%#{params[:q]}%".downcase
-      @gemstones = GemStone.where("(lower(name) like ? or lower(chem_formula) like ? or lower(color) like ?)", like_value, like_value, like_value)
+      @gemstones = GemStone.where("(lower(name) \t like ?", like_value)
     else
       @gemstones = GemStone.all
     end

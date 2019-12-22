@@ -47,6 +47,13 @@ class GemstoneForm extends React.Component {
     document.getElementById('image').click();
   }
 
+  /**
+   * This is an event
+   * 
+   * This event is very eventful
+   * 
+   * @param {Event} event 
+   */
   handleImageChange(event) {
     const input = event.target;
     const canvas = document.getElementById('image-preview');
@@ -67,6 +74,7 @@ class GemstoneForm extends React.Component {
       this.setState({image: imageData});
     };
     img.src = src;
+
   }
 
   render() {
