@@ -8,7 +8,7 @@ class GemStonesController < ApplicationController
   def index
     if params[:q] != nil
       like_value = "%#{params[:q]}%".downcase
-      @gemstones = GemStone.where("(lower(name) \t like ?", like_value)
+      @gemstones = GemStone.where("lower(name) like ?", like_value)
     else
       @gemstones = GemStone.all
     end
