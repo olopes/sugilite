@@ -38,7 +38,7 @@ gem 'jbuilder', '>= 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # react-js
-gem 'webpacker'
+gem 'webpacker', '~> 6.x'
 gem 'react-rails'
 
 group :development, :test do

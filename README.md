@@ -45,7 +45,7 @@ rake routes
 
 * Deployment instructions
 ```shell
-rails serve
+rails server
 ```
 
 * ...
