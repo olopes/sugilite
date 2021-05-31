@@ -12,12 +12,14 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "is-svg": "4.2.2",
     "node-forge": "^0.10.0",
+    "postcss": "^8.2.10",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react_ujs": "^2.6.0",
-    "ssri": "8.0.1",
-    "webpack": "^4.39.3"
+    "ssri": "^7.1.1",
+    "webpack": "^4.39.3",
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.1",
