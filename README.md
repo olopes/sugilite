@@ -5,7 +5,7 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version: 2.5.5
+* Ruby version: 2.7.3
 
 * System dependencies
 Install dependencies:
@@ -65,3 +65,6 @@ Generate a ReactJS component:
 rails g react:component GemstoneDetail
 ```
 Then I rename .js to .jsx because yes, although is not really necessary.
+
+
+

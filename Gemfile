@@ -1,7 +1,7 @@
-source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+#source 'https://rubygems.org'
+#git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.8'
+ruby '2.7.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.0.3"
@@ -38,7 +38,8 @@ gem 'jbuilder', '>= 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # react-js
-gem 'webpacker', '~> 6.x'
+# gem 'webpacker', '~> 6.x'
+gem 'webpacker', '6.0.0.pre.2'
 gem 'react-rails'
 
 group :development, :test do
