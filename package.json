@@ -1,5 +1,7 @@
 {
   "name": "sugilite",
+  "license": "MIT",
+  "author": "olopes <psicover.dev@gmail.com>",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.5.5",
@@ -23,6 +25,9 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.1",
+    "glob-parent": "^5.1.2",
+    "normalize-url": "^4.5.1",
+    "trim-newlines": "^3.0.1",
     "webpack-dev-server": "^3.8.0"
   }
 }
