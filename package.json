@@ -20,7 +20,7 @@
     "react-dom": "^16.9.0",
     "react_ujs": "^2.6.0",
     "webpack": "^5.58.2",
-    "set-value": "^4.0.1"
+    "set-value": "^4.1.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.1",
