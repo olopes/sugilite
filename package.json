@@ -19,7 +19,8 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react_ujs": "^2.6.0",
-    "webpack": "^5.58.2"
+    "webpack": "^5.58.2",
+    "set-value": "^4.0.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.1",
