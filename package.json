@@ -10,7 +10,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.11.1",
     "@fortawesome/free-solid-svg-icons": "^5.11.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "@rails/webpacker": "^4.0.7",
+    "@rails/webpacker": "^5.4.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "is-svg": "^4.2.2",
     "node-forge": "^0.10.0",
