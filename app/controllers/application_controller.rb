@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
     include ExceptionHandler
 
 
-    rescue_from VersionCake::UnsupportedVersionError, :with => :render_unsupported_version
-
     private
   
     def render_unsupported_version
