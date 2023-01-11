@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import Gemstone from "./gemstone"
 import ChemicalFormula from "./chemical-formula"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { relative } from "path"
 
 class GemstoneDetail extends React.Component {
 

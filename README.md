@@ -30,12 +30,12 @@ Things you may want to cover:
 * System dependencies
 Install dependencies:
 ```shell
-bundle install
+./bin/bundle install
 ```
 
 Update dependencies (updates Gemfile.lock):
 ```shell
-bundle update
+./bin/bundle update
 ```
 
 * Configuration
@@ -43,30 +43,36 @@ bundle update
 * Database creation & initialization
 ```shell
 # creation:
-rails db:migration
+./bin/rails db:migration
 
 # initialization with sample data:
-rails db:seed
+./bin/rails db:seed
 
 # or both in a single shot:
-rails db:setup
+./bin/rails db:setup
 ```
 
 * How to run the test suite
 ```shell
-rails spec
+./bin/rails spec
 ```
 
 * Services (job queues, cache servers, search engines, etc.)
 
 ```shell
-rake routes
+./bin/rake routes
 ```
 
 * Deployment instructions
 ```shell
-rails server
+./bin/rails server
 ```
+
+* Clear compiled assets cache
+```shell
+./bin/rails assets:clobber ; ./bin/rails webpacker:clobber
+```
+
 
 * ...
 
