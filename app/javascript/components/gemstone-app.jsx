@@ -1,138 +1,118 @@
 import React from "react"
-import PropTypes from "prop-types"
 import Gemstone from "./gemstone"
 import GemstoneForm from "./gemstone-form"
 import GemstoneList from "./gemstone-list"
 import GemstoneService from "./gemstone-service"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const emptyPromise = () => new Promise((resolve,reject) => resolve(true));
+const emptyPromise = () => new Promise((resolve, reject) => resolve(true));
 
 const Mode = Object.freeze({
-  LIST:   Symbol("list"),
-  MODIFY:  Symbol("modify"),
-  CREATE: Symbol("create")
+  LIST: Symbol("list"),
+  MODIFY: Symbol("modify"),
+  CREATE: Symbol("create"),
+  LOADING: Symbol("loading"),
 });
 
-class GemstoneApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      gemstones: [],
-      gemstone: null,
-      quicksearch: '',
-      mode: Mode.LIST
-    };
-    this.gemstoneService = new GemstoneService();
+const NEW_GEMSTONE = {
+  id: -1,
+  name: '',
+  chemFormula: '',
+  color: '',
+}
 
-    this.getGemstones = this.getGemstones.bind(this);
-    this.handleSaveNew = this.handleSaveNew.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleSaveExisting = this.handleSaveExisting.bind(this);
-    this.handleModify = this.handleModify.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+const gemstoneService = new GemstoneService();
+
+export default function GemstoneApp() {
+  const [gemstones, setGemstones] = React.useState([]);
+  const [gemstone, setGemstone] = React.useState(null);
+  const [quicksearch, setQuicksearch] = React.useState('');
+  const [mode, setMode] = React.useState(Mode.LOADING);
+
+  const onCancel = () => {
+    setMode(Mode.LIST);
+  };
+
+  const onSaveNew = (gemstone) => {
+    console.log("APP: Save new gemstone", gemstone.name);
+    setMode(Mode.LOADING);
+    gemstoneService.createGemstone(gemstone)
+      .then(newGem => setGemstones([...gemstones, newGem]))
+      .finally(() => setMode(Mode.LIST));
   }
 
-  componentDidMount() {
-    this.getGemstones();
+  const onSaveExisting = (gemstone) => {
+    console.log("APP: Save existing gemstone", gemstone.name);
+    setMode(Mode.LOADING);
+    gemstoneService.updateGemstone(gemstone)
+      .then(updatedGemstone => gemstones.map((g) => g.id == updatedGemstone.id ? updatedGemstone : g))  // replace existing instance
+      .then(gemstones => setGemstones([...gemstones]))  // change list (re-render)
+      .finally(() => setMode(Mode.LIST));   // show lst
   }
 
-  getGemstones() {
-    if(arguments.length) {
-      const event = arguments[0];
-      event.preventDefault();
-      event.stopPropagation();
+  const onDelete = (gemstone) => {
+    if (confirm(`Do you really want to delete "${gemstone.name}" (${gemstone.id}) ?`)) {
+      gemstoneService.deleteGemstone(gemstone)
+        .then((success) => success && setGemstones(gemstones.filter(g => g.id !== gemstone.id)));
     }
-    this.gemstoneService
-      .loadGemstones(this.state.quicksearch)
-      .then(gemstones => this.setState({gemstones: gemstones, mode: Mode.LIST}));
-    return false;
+  };
+
+  const onModify = (gemstone) => {
+    console.log("APP: Modify gemstone", gemstone.name);
+    setGemstone(gemstone);
+    setMode(Mode.MODIFY);
+  };
+
+  const onCreate = () => {
+    console.log("APP: Add gemstone");
+    setMode(Mode.CREATE);
+  };
+
+
+  React.useEffect(() => {
+    console.log("APP: Loading gemstones", quicksearch);
+    gemstoneService.loadGemstones(quicksearch).then(setGemstones).finally(() => setMode(Mode.LIST));
+  }, [quicksearch]);
+
+
+
+
+
+  if (mode === Mode.LOADING) {
+    return (
+      <React.Fragment>
+        <div className="loader-spin"><FontAwesomeIcon icon='spinner' size="5x" spin /></div>
+      </React.Fragment>
+    );
   }
 
-  handleSaveNew(gemstone) {
-    return this.gemstoneService.createGemstone(gemstone).then(_ => this.getGemstones());
+  else if (mode === Mode.CREATE) {
+    return (
+      <React.Fragment>
+        <GemstoneForm gemstone={{ ...NEW_GEMSTONE }} onSave={onSaveNew} onCancel={onCancel}></GemstoneForm>
+      </React.Fragment>
+    );
   }
 
-  handleCancel() {
-    this.setState({mode:Mode.LIST});
+  else if (mode === Mode.MODIFY) {
+    return (
+      <React.Fragment>
+        <GemstoneForm gemstone={gemstone} onSave={onSaveExisting} onCancel={onCancel}></GemstoneForm>
+      </React.Fragment>
+    );
   }
 
-  handleCreate(gemstone) {
-    console.log("APP: Modify gemstone");
-    console.log(gemstone);
-    this.setState({gemstone: new Gemstone({
-      id: -1,
-      name: '',
-      chemFormula: '',
-      color: ''
-    }), mode: Mode.CREATE});
-  }
-
-  handleModify(gemstone) {
-    console.log("APP: Modify gemstone");
-    console.log(gemstone);
-    this.setState({gemstone: gemstone, mode: Mode.MODIFY});
-  }
-
-  handleSaveExisting(gemstone) {
-    console.log("APP: Modify gemstone");
-    console.log(gemstone);
-    return this.gemstoneService.updateGemstone(gemstone).then(updatedGemstone => {
-      const id = updatedGemstone.id;
-      const gemstones = this.state.gemstones.map((g) => g.id == id ? updatedGemstone : g);
-      this.setState({gemstones: gemstones, mode: Mode.LIST});
-    });
-  }
-
-  handleDelete(gemstone) {
-    if(confirm(`Do you really want to delete "${gemstone.name}" (${gemstone.id}) ?`)) {
-      return this.gemstoneService.deleteGemstone(gemstone).then((success) => {
-        if(success) {
-          const gemstones = this.state.gemstones.filter(g => g.id !== gemstone.id);
-          this.setState({ gemstones });
-        }
-        return success;
-      });
-    } else {
-      return emptyPromise();
-    }
-  }
-
-  handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState({ [name]: value });
-  }
-
-  render () {
-    if(this.state.mode === Mode.CREATE) {
-      return (
-        <React.Fragment>
-          <GemstoneForm gemstone={this.state.gemstone} onSave={this.handleSaveNew} onCancel={this.handleCancel}></GemstoneForm>
-        </React.Fragment>
-      );
-    }
-    if(this.state.mode === Mode.MODIFY) {
-      return (
-        <React.Fragment>
-          <GemstoneForm gemstone={this.state.gemstone} onSave={this.handleSaveExisting} onCancel={this.handleCancel}></GemstoneForm>
-        </React.Fragment>
-      );
-    }
+  else {
     return (
       <React.Fragment>
         <div className="filter">
-          <form onSubmit={this.getGemstones}>
-          <input id="quicksearch" name="quicksearch" type="text" placeholder="Quick search" value={this.state.quicksearch} onChange={this.handleChange} /><FontAwesomeIcon icon="search" title="Search" onClick={this.getGemstones} />
+          <form onSubmit={() => false}>
+            <input id="quicksearch" name="quicksearch" type="text" placeholder="Quick search" value={quicksearch} onChange={ev => setQuicksearch(ev.target.value)} /><FontAwesomeIcon icon="search" title="Search" />
           </form>
         </div>
-        <GemstoneList gemstones={this.state.gemstones} onDelete={this.handleDelete} onModify={this.handleModify} onCreate={this.handleCreate}></GemstoneList>
+        <GemstoneList gemstones={gemstones} onDelete={onDelete} onModify={onModify} onCreate={onCreate}></GemstoneList>
       </React.Fragment>
     );
-
   }
-}
 
-export default GemstoneApp
+}

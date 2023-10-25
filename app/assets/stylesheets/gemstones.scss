@@ -30,12 +30,21 @@ html {
             }
         }
 
+        .loader-spin {
+            text-align: center;
+            margin-top: 4em;
+        }
+
         .gemstone-form {
             width: 600px;
             margin: 1rem auto;
             padding: 10px;
             border: 2px solid #777777;
             border-radius: 15px;
+
+            ul.formula-group {
+                list-style-type: square;
+            }
 
             div {
                 margin: 5px;

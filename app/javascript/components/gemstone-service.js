@@ -1,14 +1,22 @@
 import Gemstone from "./gemstone"
 
+/**
+ * REST client to Gemstones API
+ */
 class GemstoneService {
 
+  /**
+   * List/Query gemstones
+   * 
+   * @param {string} search filter by name
+   * 
+   * @returns {Promise<Gemstone[]>} list of gemstones found
+   */
   async loadGemstones(search) {
     const url = search ? `/gem_stones?q=${encodeURIComponent(search)}` : '/gem_stones';
     return fetch(url)
       .then(response => {
-        if (!response.ok) {
-          this.handleResponseError(response);
-        }
+        this.validateResponse(response);
         return response.json();
       })
       .then(json => json.map(gemstone => new Gemstone({
@@ -20,6 +28,13 @@ class GemstoneService {
       });
   }
 
+  /**
+   * Create a new gemstone
+   * 
+   * @param {Gemstone} gemstone the gemstone to instert in the database
+   * 
+   * @returns {Promise<Gemstone>} the new gemstone entity
+   */
   async createGemstone(gemstone) {
     const strGemstome = JSON.stringify({
       gem_stone: {
@@ -41,9 +56,7 @@ class GemstoneService {
       body: strGemstome
     })
     .then(response => {
-      if (!response.ok) {
-        this.handleResponseError(response);
-      }
+      this.validateResponse(response);
       return response.json();
     })
     .then(json => new Gemstone({
@@ -55,6 +68,13 @@ class GemstoneService {
     });
   }
 
+  /**
+   * Delete an existing gemstone
+   * 
+   * @param {Gemstone} gemstone the gemstone to delete
+   * 
+   * @returns {Promise<boolean>} true if the gemstone was deleted, false otherwise
+   */
   deleteGemstone(gemstone) {
     return fetch(`/gem_stones/${gemstone.id}`, {
       method: "DELETE",
@@ -72,6 +92,13 @@ class GemstoneService {
     });
   }
 
+  /**
+   * Updates a gemstone
+   * 
+   * @param {Gemstone} gemstone the gemstone data to save
+   * 
+   * @returns {Promise<Gemstone>} the updated gemstone entity
+   */
   async updateGemstone(gemstone) {
     const strGemstome = JSON.stringify({
       gem_stone: {
@@ -93,9 +120,7 @@ class GemstoneService {
       body: strGemstome
     })
     .then(response => {
-      if (!response.ok) {
-        this.handleResponseError(response);
-      }
+      this.validateResponse(response);
       // server replies with code 204: No content
       return new Gemstone(gemstone);
     })
@@ -104,10 +129,28 @@ class GemstoneService {
     });
   }
 
-  handleResponseError(response) {
-    throw new Error("HTTP error, status = " + response.status);
+  /**
+   * Checks if the given response finished successfuly, otherwitse throws an exception.
+   * 
+   * @param {Response} response fetch() response
+   * 
+   * @returns {Response} successful response
+   * 
+   * @throws {Error} response was not successful
+   */
+  validateResponse(response) {
+    if (response.ok) {
+      return response;
+    } else {
+      throw new Error("HTTP error, status = " + response.status);
+    }
   }
 
+  /**
+   * Displays the captured error
+   * 
+   * @param {Error} error Exception thrown
+   */
   handleError(error) {
     console.log(`Error occured:`);
     console.log(error);

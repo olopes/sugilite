@@ -1,34 +1,36 @@
 import React from "react"
-import PropTypes from "prop-types"
 
-class ChemicalFormula extends React.Component {
-  static propTypes = {
-    formula: PropTypes.string
-  }
+/**
+ * Renders a chemical formula
+ * 
+ * @param {{formula: string}} props
+ * 
+ * @returns {React.JSX.Element} 
+ */
+export default function ChemicalFormula({ formula }) {
+  if (formula === null || formula === undefined || formula.trim() === '') return (<span>Preview</span>);
 
-  formatFormula(formula) {
-    if (!formula) return null;
-    return formula
-      .trim()
-      .split(/_(\d+)_/)
-      .map((str, idx) => (idx % 2) ? (<sub key={idx}>{str}</sub>) : (<span key={idx}>{str}</span>));
-  }
-
-
-  formatFormulas(formula) {
-    if (!formula) return null;
-    const formulas = formula.split('\|\|');
-    return formulas.map((s, i) => [(i === 0) ? null : <br key={i} />, this.formatFormula(s)]);
-  }
-
-
-  render() {
-    return (
-      <React.Fragment>
-        {this.formatFormulas(this.props.formula)}
-      </React.Fragment>
-    );
-  }
+  return (<ul className="formula-group">
+    {formula.split('||').map((part, idx) => <FormatFormulaPart key={`fpart-${idx}`} formulaPart={part} />)}
+  </ul>);
 }
 
-export default ChemicalFormula
+/**
+ * Render a part of a multipart formula
+ * 
+ * @param {{formulaPart: string}} props 
+ * 
+ * @returns {React.JSX.Element} 
+ */
+function FormatFormulaPart({ formulaPart }) {
+  if (formulaPart === null || formulaPart === undefined) return null;
+
+  return (<li className="formula-part">
+    {
+      formulaPart
+        .trim()
+        .split(/_(\d+)_/)
+        .map((str, idx) => (idx % 2) ? (<sub key={`sub-${idx}`}>{str}</sub>) : (<span key={`span-${idx}`}>{str}</span>))
+    }
+  </li>);
+}
