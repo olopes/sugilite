@@ -9,7 +9,7 @@ ruby '3.3.0'
 gem "rails", "~> 7.0.8"
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', "~> 1.7.2"
 # Use Puma as the app server
 gem 'puma', '>= 5.6'
 # Use SCSS for stylesheets
