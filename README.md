@@ -25,17 +25,17 @@ To search for a gemstone, use the top right input box (type something and press 
 
 Things you may want to cover:
 
-* Ruby version: 2.7.3
+* Ruby version: 3.3.4
 
 * System dependencies
 Install dependencies:
 ```shell
-./bin/bundle install
+bundle install
 ```
 
 Update dependencies (updates Gemfile.lock):
 ```shell
-./bin/bundle update
+bundle update
 ```
 
 * Configuration
@@ -43,34 +43,34 @@ Update dependencies (updates Gemfile.lock):
 * Database creation & initialization
 ```shell
 # creation:
-./bin/rails db:migration
+rails db:migration
 
 # initialization with sample data:
-./bin/rails db:seed
+rails db:seed
 
 # or both in a single shot:
-./bin/rails db:setup
+rails db:setup
 ```
 
 * How to run the test suite
 ```shell
-./bin/rails spec
+rails spec
 ```
 
 * Services (job queues, cache servers, search engines, etc.)
 
 ```shell
-./bin/rake routes
+rails routes
 ```
 
 * Deployment instructions
 ```shell
-./bin/rails server
+rails server
 ```
 
 * Clear compiled assets cache
 ```shell
-./bin/rails assets:clobber ; ./bin/rails webpacker:clobber
+rails assets:clobber ; rails webpacker:clobber
 ```
 
 
