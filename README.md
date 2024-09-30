@@ -12,7 +12,8 @@ Click the tile with the plus symbol to add a new gemstone to your collection.
  * Enter the gemstone name
  * Enter the most common color
  * Enter the chemical formula. 
-   * Use unserscore characters to subscript: `O_2_` becomes O<sub>2</sub>. 
+   * Use underscore characters to subscript: `O_2_` becomes O<sub>2</sub>. 
+   * Use caret characters to superscript: `O^2^` becomes O<sup>2</sup>. 
    * Use two vertical bars `||` to add a new line.
  * Click the camera tile to upload a photo of the gemstone.
  * Click save and you're done!
