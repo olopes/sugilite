@@ -1,0 +1,12 @@
+# Ignore file for docker stuff
+node_modules/
+# bin/
+log/
+.env
+tmp/
+test/
+public/packs/
+.git
+.ruby-lsp
+README.md
+
