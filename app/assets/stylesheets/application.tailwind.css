@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+// Legacy SCSS
+---------------------------------------------------------------------
+// Place all the styles related to the GemStones controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+*/
+html {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    background-color: #ffffff;
+    
+    .gemstone-app {
+        padding: 10px;
+
+        .header {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .filter {
+            grid-area: left;
+            text-align: right;
+
+            input {
+                padding-right: 1rem;
+            }
+            svg {
+                position: relative;
+                left: -1.2rem;
+                top: 1px;
+                z-index: 100;
+            }
+        }
+
+        .loader-spin {
+            text-align: center;
+            margin-top: 4em;
+        }
+
+        .gemstone-form {
+            width: 600px;
+            margin: 1rem auto;
+            padding: 10px;
+            border: 2px solid #777777;
+            border-radius: 15px;
+
+            ul.formula-group {
+                list-style-type: square;
+            }
+
+            div {
+                margin: 5px;
+                margin-bottom: 10px;
+
+                &.formula-preview {
+                    font-size: 0.8rem;
+                    font-style: italic;
+                    color: #444444;
+                    height: 2rem;
+                }
+
+                &.buttons {
+                    text-align: right;
+                }
+
+                &.image {
+                    text-align: center;
+
+                    .image-manipulation {
+                        display: none;
+                    }
+                    .image-preview {
+                        cursor: pointer;
+                        display: inline-block;
+                        padding: 10px;
+                        border: 1px solid #222222;
+                        border-radius: 15px;
+
+                        img, svg {
+                            color: #444444;
+                            width: 128;
+                            height: 128;
+                        }
+                    }
+                }
+
+                label {
+                    width: 150px;
+                    display: block;
+                    font-weight: bold;
+                }
+
+                input[type=text] {
+                    border: none;
+                    border-bottom: 1px solid #444444;
+                    padding: 3px;
+                    width: 100%;
+
+                    &:hover {
+                        background-color: whitesmoke;
+                    }
+
+                    &:focus {
+                        border: none;
+                        border-bottom: 1px solid black;
+                    }
+
+                    &:active {
+                        border: none;
+                        border-bottom: 1px solid black;
+                    }
+                }
+            }
+        }
+
+        .gemstone-list {
+            margin-top: 1rem;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+
+            .empty-list {
+                flex: 0 0 100%;
+                margin: 10px;
+                padding: 10px;
+                border-radius: 15px;
+                border: 2px solid #777777;
+                background-color: #cccccc;
+                font-style: italic;
+                text-align: center;
+            }
+
+            .gemstone {
+                /* flex: 0 0 400; */
+                margin: 10px;
+                padding: 10px;
+                background-color: #f9f9f9;
+                position: relative;
+                /*background-color: whitesmoke;*/
+
+                &:hover {
+                    box-shadow: 0px 0px 3px 3px #999999;
+                    cursor: pointer;
+
+                    div.actions {
+                        display: initial;
+                    }
+                }
+
+                &.add, &.add div.preview svg {
+                    text-align: center;
+                    color: #aaaaaa;
+                }
+
+                &.add:hover, &.add:hover div.preview svg {
+                    color: #777777;
+                }
+
+                &.expanded {
+                    flex: 0 0 400;
+                    height: 100px;
+                }
+
+                div {
+                    margin: 5px;
+
+                    &.preview svg {
+                        color: #777777;
+                    }
+
+                    &.preview img {
+                        border-radius: 10px;
+                    }
+
+                    &.actions {
+                        display: none;
+                        position: absolute;
+                        bottom: 0px;
+                        right: 0px;
+                        svg {
+                            margin: 0 5px;
+                        }
+                        svg:hover {
+                            color: #3300ff;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                label {
+                    width: 150px;
+                    display: inline-block;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        div.buttons {
+            text-align: right;
+        }
+        button {
+            text-transform: capitalize;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 5px;
+            min-width: 5rem;
+        }
+
+    }
+}

@@ -12,18 +12,18 @@ class GemStonesController < ApplicationController
     else
       @gemstones = GemStone.all
     end
-    json_response(@gemstones)
+    render json: @gemstones
   end
 
   # POST /gem_stones
   def create
     @gemstone = GemStone.create!(gem_stone_params)
-    json_response(@gemstone, :created)
+    render json: @gemstone, status: :created
   end
 
   # GET /gem_stones/:id
   def show
-    json_response(@gemstone)
+    render json: @gemstone
   end
 
   # PUT /gem_stones/:id
