@@ -2,7 +2,7 @@
 # >This is docs
 #
 class GemStonesController < ApplicationController
-  before_action :set_gem_stone, only: [:show, :update, :destroy]
+  before_action :set_gem_stone, only: [ :show, :update, :destroy ]
 
   # GET /gem_stones
   def index
