@@ -1,5 +1,5 @@
 import React from "react"
-import Gemstone from "./gemstone"
+import { Gemstone } from "./gemstone"
 import GemstoneForm from "./gemstone-form"
 import GemstoneList from "./gemstone-list"
 import GemstoneService from "./gemstone-service"
@@ -24,8 +24,8 @@ const NEW_GEMSTONE = {
 const gemstoneService = new GemstoneService();
 
 export default function GemstoneApp() {
-  const [gemstones, setGemstones] = React.useState([]);
-  const [gemstone, setGemstone] = React.useState(null);
+  const [gemstones, setGemstones] = React.useState<Gemstone[]>([]);
+  const [gemstone, setGemstone] = React.useState<Gemstone>();
   const [quicksearch, setQuicksearch] = React.useState('');
   const [mode, setMode] = React.useState(Mode.LOADING);
 
@@ -33,7 +33,7 @@ export default function GemstoneApp() {
     setMode(Mode.LIST);
   };
 
-  const onSaveNew = (gemstone) => {
+  const onSaveNew = (gemstone: Gemstone) => {
     console.log("APP: Save new gemstone", gemstone.name);
     setMode(Mode.LOADING);
     gemstoneService.createGemstone(gemstone)
@@ -41,7 +41,7 @@ export default function GemstoneApp() {
       .finally(() => setMode(Mode.LIST));
   }
 
-  const onSaveExisting = (gemstone) => {
+  const onSaveExisting = (gemstone: Gemstone) => {
     console.log("APP: Save existing gemstone", gemstone.name);
     setMode(Mode.LOADING);
     gemstoneService.updateGemstone(gemstone)
@@ -50,14 +50,14 @@ export default function GemstoneApp() {
       .finally(() => setMode(Mode.LIST));   // show lst
   }
 
-  const onDelete = (gemstone) => {
+  const onDelete = (gemstone: Gemstone) => {
     if (confirm(`Do you really want to delete "${gemstone.name}" (${gemstone.id}) ?`)) {
       gemstoneService.deleteGemstone(gemstone)
         .then((success) => success && setGemstones(gemstones.filter(g => g.id !== gemstone.id)));
     }
   };
 
-  const onModify = (gemstone) => {
+  const onModify = (gemstone: Gemstone) => {
     console.log("APP: Modify gemstone", gemstone.name);
     setGemstone(gemstone);
     setMode(Mode.MODIFY);
@@ -94,7 +94,7 @@ export default function GemstoneApp() {
     );
   }
 
-  else if (mode === Mode.MODIFY) {
+  else if (mode === Mode.MODIFY && gemstone) {
     return (
       <React.Fragment>
         <GemstoneForm gemstone={gemstone} onSave={onSaveExisting} onCancel={onCancel}></GemstoneForm>

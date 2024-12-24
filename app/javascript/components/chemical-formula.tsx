@@ -5,9 +5,8 @@ import React from "react"
  * 
  * @param {{formula: string}} props
  * 
- * @returns {React.JSX.Element} 
  */
-export default function ChemicalFormula({ formula }) {
+export default function ChemicalFormula({ formula }: { formula: string; }) {
   if (formula === null || formula === undefined || formula.trim() === '') return (<span>Preview</span>);
 
   return (<ul className="formula-group">
@@ -20,9 +19,8 @@ export default function ChemicalFormula({ formula }) {
  * 
  * @param {{formulaPart: string}} props 
  * 
- * @returns {React.JSX.Element} 
  */
-function FormatFormulaPart({ formulaPart }) {
+function FormatFormulaPart({ formulaPart }: { formulaPart: string; }) {
   if (formulaPart === null || formulaPart === undefined) return null;
 
   const formulaElements = formulaPart

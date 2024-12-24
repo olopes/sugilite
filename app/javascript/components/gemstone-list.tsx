@@ -1,5 +1,5 @@
 import React from "react"
-import Gemstone from "./gemstone"
+import { Gemstone } from "./gemstone"
 import GemstoneDetail from "./gemstone-detail"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -13,10 +13,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
  * onDelete: (gemstone: Gemstone) => void,
  * onModify: (gemstone: Gemstone) => void,
  * }} props
- * 
- * @returns {React.JSX.Element}
  */
-export default function GemstoneList({ gemstones, onCreate, onModify, onDelete }) {
+export default function GemstoneList({ gemstones, onCreate, onModify, onDelete }: {
+  gemstones: Gemstone[];
+  onCreate: () => void;
+  onDelete: (gemstone: Gemstone) => void;
+  onModify: (gemstone: Gemstone) => void;
+}) {
 
   return (
     <React.Fragment>
@@ -39,9 +42,12 @@ export default function GemstoneList({ gemstones, onCreate, onModify, onDelete }
  * onDelete: (gemstone: Gemstone) => void,
  * onModify: (gemstone: Gemstone) => void,
  * }} props 
- * @returns {React.JSX.Element}
  */
-function GemstoneListItems({ gemstones, onDelete, onModify } ) {
+function GemstoneListItems({ gemstones, onDelete, onModify }: {
+  gemstones: Gemstone[];
+  onDelete: (gemstone: Gemstone) => void;
+  onModify: (gemstone: Gemstone) => void;
+}) {
   if (gemstones.length === 0) {
     return (<div className="empty-list">Empty gemstone list.<br />Use the form to add a new gemstone.</div>);
   }
