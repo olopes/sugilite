@@ -23,7 +23,7 @@ export default function GemstoneList({ gemstones, onCreate, onModify, onDelete }
 
   return (
     <React.Fragment>
-      <div className="gemstone-list">
+      <div className="flex flex-row gap-4 flex-wrap m-8">
         <GemstoneListItems gemstones={gemstones} onDelete={onDelete} onModify={onModify} />
         <div className="gemstone compact add" onClick={onCreate}>
           <div className="preview"><FontAwesomeIcon icon="plus" style={{ width: 128, height: 128 }} /></div>
