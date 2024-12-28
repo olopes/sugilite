@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import React from "react"
 
 /**
  * Renders a chemical formula
@@ -26,7 +25,7 @@ function FormatFormulaPart({ formulaPart }: { formulaPart: string; }) {
 
   const formulaElements = formulaPart
     .trim()
-    .split(/(\^[^\^]+\^|_[^_]+_)/)
+    .split(/(\^[^^]+\^|_[^_]+_)/)
     .filter(tok => tok.trim() !== "")
     .map((token, idx) => {
       if (token.startsWith("_") && token.endsWith("_")) {

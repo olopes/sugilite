@@ -1,7 +1,9 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+// const defaultTheme = require('tailwindcss/defaultTheme');
+import { fontFamily } from 'tailwindcss/defaultTheme';
+import tailwindcssAnimatePlugin from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   darkMode: ["class"],
   content: [
     './app/views/**/*.html.erb',
@@ -12,9 +14,23 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ["Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Helvetica", ...defaultTheme.fontFamily.sans],
+        'sans': ["Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Helvetica", ...fontFamily.sans],
       },
-        colors: {
+      // Override default dropshadow color
+      /*
+      dropShadow: {
+        "md": [
+          '0 4px 3px hsl(var(--card-foreground) / 0.07)',
+          '0 2px 2px hsl(var(--card-foreground) / 0.06)',
+        ],
+        "xl": [
+          '0 20px 13px hsl(var(--card-foreground) / 0.03)',
+          '0 8px 5px hsl(var(--card-foreground) / 0.08)',
+        ]
+      },
+      */
+      colors: {
+        sugilite: "hsl(var(--sugilite))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -56,5 +72,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [tailwindcssAnimatePlugin],
+};
+
+export default config;
+

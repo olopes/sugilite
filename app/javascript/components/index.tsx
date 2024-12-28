@@ -1,6 +1,5 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
-import AppRoot from "./app-root";
+import AppRoot from "@/components/app-root";
 
 document.addEventListener("turbo:load", () => {
     const rootEl = document.getElementById("sugilite-root")!;

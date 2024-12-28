@@ -1,4 +1,5 @@
-import { Gemstone } from "./gemstone"
+import { Gemstone } from "@/components/gemstone"
+
 type BackendGem = Omit<Gemstone, "chemFormula"> & { chem_formula?: string | null };
 /**
  * REST client to Gemstones API

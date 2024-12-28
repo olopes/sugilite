@@ -1,61 +1,31 @@
-import React from "react"
-import { Gemstone } from "./gemstone"
-import GemstoneDetail from "./gemstone-detail"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
+import GemstoneDetail from "@/components/gemstone-detail";
+import { AddNewGemstone } from "@/components/gemstone-add";
+import { useGemstones } from "./gemstone-provider";
+import { ScrollArea } from "./ui/scroll-area";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import { useRef } from "react";
 
 /**
  * Renders a list of Gemstones
- * 
- * @param {{
- * gemstones: Gemstone[],
- * onCreate: () => void,
- * onDelete: (gemstone: Gemstone) => void,
- * onModify: (gemstone: Gemstone) => void,
- * }} props
+ *
  */
-export default function GemstoneList({ gemstones, onCreate, onModify, onDelete }: {
-  gemstones: Gemstone[];
-  onCreate: () => void;
-  onDelete: (gemstone: Gemstone) => void;
-  onModify: (gemstone: Gemstone) => void;
-}) {
-
+export default function GemstoneList() {
+  const { gemstones } = useGemstones();
+  const count = gemstones.length;
   return (
-    <React.Fragment>
+    <ScrollArea className="flex flex-1 max-h-full overflow-y-auto border border-pink-400">
       <div className="flex flex-row gap-4 flex-wrap m-8">
-        <GemstoneListItems gemstones={gemstones} onDelete={onDelete} onModify={onModify} />
-        <div className="gemstone compact add" onClick={onCreate}>
-          <div className="preview"><FontAwesomeIcon icon="plus" style={{ width: 128, height: 128 }} /></div>
-          <div className="name">Add new</div>
-        </div>
+        {count === 0 ? (
+          <div className="empty-list">
+            Empty gemstone list.
+            <br />
+            Use the form to add a new gemstone.
+          </div>
+        ) : (
+          gemstones.map((gemstone) => <GemstoneDetail key={gemstone.id} gemstone={gemstone} />)
+        )}
+        <AddNewGemstone />
       </div>
-    </React.Fragment>
+    </ScrollArea>
   );
 }
-
-/**
- * Renders the list items for each Gemstone
- * 
- * @param {{
- * gemstones: Gemstone[],
- * onDelete: (gemstone: Gemstone) => void,
- * onModify: (gemstone: Gemstone) => void,
- * }} props 
- */
-function GemstoneListItems({ gemstones, onDelete, onModify }: {
-  gemstones: Gemstone[];
-  onDelete: (gemstone: Gemstone) => void;
-  onModify: (gemstone: Gemstone) => void;
-}) {
-  if (gemstones.length === 0) {
-    return (<div className="empty-list">Empty gemstone list.<br />Use the form to add a new gemstone.</div>);
-  }
-  return (
-    <React.Fragment>
-      {gemstones.map(gemstone => <GemstoneDetail key={`gem-${gemstone.id}`} gemstone={gemstone} onDelete={onDelete} onModify={onModify} />)}
-    </React.Fragment>
-  );
-}
-
-

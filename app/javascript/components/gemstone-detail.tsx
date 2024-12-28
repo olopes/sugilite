@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Gemstone } from "@/components/gemstone";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import ChemicalFormula from "@/components/chemical-formula";
@@ -15,89 +14,131 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import GemstoneForm from "./gemstone-form";
+import GemstoneForm from "@/components/gemstone-form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { MouseEvent, useCallback, useState } from "react";
+import { PictureBox } from "@/components/picture-box";
+import { useGemstoneActions } from "./gemstone-provider";
+import { cn } from "@/lib/utils";
 
 /**
  * Renders a Gemstone card
- * 
- * @param props 
- * 
+ *
+ * @param props
+ *
  */
-export default function GemstoneDetail({ gemstone, onModify, onDelete }: { gemstone: Gemstone, onModify: (gemstone: Gemstone) => void, onDelete: (gemstone: Gemstone) => void }) {
+export default function GemstoneDetail({ gemstone }: { gemstone: Gemstone }) {
+  const { deleteGemstone, updateGemstone } = useGemstoneActions();
+  const [open, setOpen] = useState(false);
 
-  const clickDelete = React.useCallback((event: React.MouseEvent<HTMLSpanElement>) => {
-    event.preventDefault();
-    onDelete(gemstone);
-  }, [gemstone, onDelete]);
+  const onSave = useCallback(
+    async (gemdata: Gemstone) => {
+      await updateGemstone(gemdata);
+      setOpen(false);
+      return gemdata;
+    },
+    [updateGemstone]
+  );
 
+  const clickDelete = useCallback(
+    (event: MouseEvent<HTMLElement>) => {
+      event.preventDefault();
+      deleteGemstone(gemstone);
+    },
+    [gemstone]
+  );
 
-  const clickModify = React.useCallback((event: React.MouseEvent<HTMLSpanElement>) => {
-    event.preventDefault();
-    onModify(gemstone);
-  }, [gemstone, onModify]);
+  return (
+    <Card className="w-64 group/gemcard">
+      <CardHeader>
+        <CardTitle className="flex flex-row justify-between items-center">
+          {gemstone.name}
+          <DeleteGemstoneAlert gemstone={gemstone} clickDelete={clickDelete} className="invisible group-hover/gemcard:visible"/>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex justify-center">
+        <Dialog open={open} onOpenChange={setOpen}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DialogTrigger asChild>
+                <PictureBox>
+                  {gemstone.image ? (
+                    <img src={gemstone.image} className="w-full h-full" />
+                  ) : (
+                    <CameraOff className="w-full h-full" />
+                  )}
+                </PictureBox>
+              </DialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent className="min-w-48">
+              <div className="text-center font-medium italic">Click to edit</div>
+              <div className="font-medium">Color:</div>
+              <div className="ml-2">{gemstone.color}</div>
+              <div className="font-medium">Formula:</div>
+              <ChemicalFormula className="ml-2" formula={gemstone.chemFormula} />
+            </TooltipContent>
+          </Tooltip>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Edit Gemstone</DialogTitle>
+              <DialogDescription>Change gemstone details.</DialogDescription>
+            </DialogHeader>
+            <GemstoneForm gemstone={gemstone} onSave={onSave} />
+          </DialogContent>
+        </Dialog>
+      </CardContent>
+    </Card>
+  );
+}
 
-
-  return (<Card className="w-64">
-    <CardHeader>
-      <CardTitle>{gemstone.name}</CardTitle>
-    </CardHeader>
-    <CardContent className="flex justify-center">
+const DeleteGemstoneAlert = ({
+  gemstone,
+  className,
+  clickDelete,
+}: {
+  gemstone: Gemstone;
+  className?: string;
+  clickDelete: (event: MouseEvent<HTMLElement>) => void;
+}) => {
+  return (
+    <AlertDialog>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="drop-shadow-md border rounded-xl w-40 h-40 transition-all overflow-hidden mb-4 hover:mb-0 hover:w-44 hover:h-44 hover:drop-shadow-xl">
-            {gemstone.image ? (<img src={gemstone.image} className="w-full h-full" />) : (<CameraOff className="w-full h-full" />)}
-          </div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <div>Color: {gemstone.color}</div>
-          <div><ChemicalFormula formula={gemstone.chemFormula} /></div>
-        </TooltipContent>
-      </Tooltip>
-    </CardContent>
-    <CardFooter className="flex justify-end gap-2">
-      <EdittGemstoneDialog gemstone={gemstone} />
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button size={"icon"} variant={"destructive"} onClick={clickDelete}>
-            <Trash2 />
-          </Button>
+          <AlertDialogTrigger asChild>
+            <Button
+              size={"icon"}
+              variant={"ghost"}
+              className={cn("text-muted-foreground hover:text-destructive", className)}
+            >
+              <Trash2 />
+            </Button>
+          </AlertDialogTrigger>
         </TooltipTrigger>
         <TooltipContent>Delete gemstone</TooltipContent>
       </Tooltip>
-    </CardFooter>
-  </Card>);
-}
-
-
-const EdittGemstoneDialog = ({ gemstone }: { gemstone: Gemstone }) => {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button size={"icon"} variant={"default"}>
-          <Pencil />
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit Gemstone</DialogTitle>
-          <DialogDescription>
-            Change gemstone properties.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex space-x-2 w-64">
-          {/*<GemstoneForm gemstone={gemstone} onCancel={() => { }} onSave={() => { }} />*/}
-      <div> TOMA TOMA TOMA TOMA TOMA TOMA TOMA </div>
-        </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-
-}
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>You are about to delete the gemstone "{gemstone.name}"!</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your gemstone and remove your data from our
+            servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={clickDelete}>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};

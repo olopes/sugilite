@@ -24,6 +24,7 @@
     --destructive-foreground: 210 40% 98%;
     --ring: 215 20.2% 65.1%;
     --radius: 0.5rem;
+    --sugilite: 275 55% 56%;
   }
 
   .dark {
@@ -46,6 +47,7 @@
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --ring: 216 34% 17%;
+    --sugilite: 275 78% 59%;
   }
 }
 

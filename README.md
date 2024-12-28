@@ -77,22 +77,10 @@ rails assets:clobber ; rails webpacker:clobber
 
 * ...
 
-
-I'm following these tutorials:
-
-* https://github.com/reactjs/react-rails
-* https://guides.rubyonrails.org/getting_started.html
-* https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one
-* https://dzone.com/articles/consuming-rest-api-with-reactjs
-
-
-Generate a ReactJS component:
-
-```shell
-rails g react:component GemstoneDetail
-```
-Then I rename .js to .jsx because yes, although is not really necessary.
-
+### Convert icons to ico and png
+* Get SVG from lucide icon set - https://lucide.dev/license
+* `magick +antialias -density 2048 -background transparent -define 'icon:auto-resize=256,128,64,32,24,16' icon.svg favicon.ico`
+* `magick +antialias -density 2048 -background transparent -define 'auto-resize=1024' icon.svg icon.png`
 
 ## TODO
 * Drag & drop to upload a photo

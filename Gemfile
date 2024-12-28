@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
@@ -65,5 +65,6 @@ group :test do
 end
 
 # Language server for vscode
-gem 'ruby-lsp'
-gem 'solargraph'
+gem "ruby-lsp"
+# formatter/linter for .html.erb files
+gem "htmlbeautifier"
