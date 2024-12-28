@@ -1,15 +1,13 @@
 import { Gemstone } from "@/components/gemstone";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ChemicalFormula from "@/components/chemical-formula";
 import { Button } from "@/components/ui/button";
-import { CameraOff, Pencil, Trash2 } from "lucide-react";
+import { CameraOff, Trash2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,

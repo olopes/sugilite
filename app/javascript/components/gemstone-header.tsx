@@ -2,6 +2,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { QuickSearch } from "@/components/quicksearch";
 import { Gem } from "lucide-react";
 import { useEffect, useMemo } from "react";
+import { AddNewGemstone } from "@/components/gemstone-add";
 
 export function GemstoneHeader({ title }: { title: string }) {
   useEffect(() => {
@@ -19,7 +20,8 @@ export function GemstoneHeader({ title }: { title: string }) {
       <div className="flex justify-center">
         <QuickSearch />
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2">
+        <AddNewGemstone />
         <ModeToggle />
       </div>
     </header>

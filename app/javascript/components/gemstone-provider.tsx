@@ -57,6 +57,7 @@ export function GemstoneProvider({ children }: GemstoneProviderProps) {
     const searchGemstones = async (search: string) => {
       // set action adding??
       const gemstones = await service.loadGemstones(search);
+      // await new Promise(resolve => setTimeout(resolve, 2000));
       dispatch({ type: "load", gemstones });
       return gemstones;
     };
@@ -95,7 +96,6 @@ export function GemstoneProvider({ children }: GemstoneProviderProps) {
       searchGemstones,
       updateGemstone,
     });
-    refresh();
   }, []);
 
   return (
