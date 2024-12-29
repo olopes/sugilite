@@ -1,6 +1,6 @@
 import GemstoneDetail from "@/components/gemstone-detail";
-import { useGemstones } from "./gemstone-provider";
-import { ScrollArea } from "./ui/scroll-area";
+import { useGemstones } from "@/components/gemstone-provider";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 /**
  * Renders a list of Gemstones

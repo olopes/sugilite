@@ -2,14 +2,14 @@ import { ChangeEvent, useCallback, useRef } from "react";
 import ChemicalFormula from "@/components/chemical-formula";
 import { Gemstone } from "@/components/gemstone";
 import { Image as ImageIcon } from "lucide-react";
-import { DialogClose, DialogFooter } from "./ui/dialog";
-import { Button } from "./ui/button";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const formSchema = z.object({
   name: z.string().min(2),

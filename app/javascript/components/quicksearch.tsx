@@ -1,6 +1,6 @@
 import { useQuicksearch } from "@/components/quicksearch-provider";
 import { Input } from "@/components/ui/input";
-import { useGemstoneActions } from "./gemstone-provider";
+import { useGemstoneActions } from "@/components/gemstone-provider";
 import { useEffect, useState } from "react";
 
 const DEBOUNCE_TIMEOUT = 300; // ms

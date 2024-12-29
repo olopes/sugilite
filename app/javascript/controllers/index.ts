@@ -2,7 +2,7 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { application } from "@/controllers/application";
+import SugiliteController from "@/controllers/sugilite_controller";
 
-import SugiliteController from "./sugilite_controller"
-application.register("sugilite", SugiliteController)
+application.register("sugilite", SugiliteController);

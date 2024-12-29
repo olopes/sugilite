@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { MouseEvent, useCallback, useState } from "react";
 import { PictureBox } from "@/components/picture-box";
-import { useGemstoneActions } from "./gemstone-provider";
+import { useGemstoneActions } from "@/components/gemstone-provider";
 import { cn } from "@/lib/utils";
 
 /**

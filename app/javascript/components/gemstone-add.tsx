@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { useGemstoneActions } from "./gemstone-provider";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import GemstoneForm from "./gemstone-form";
-import { Gemstone } from "./gemstone";
-import { Button } from "./ui/button";
+import { useGemstoneActions } from "@/components/gemstone-provider";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import GemstoneForm from "@/components/gemstone-form";
+import { Gemstone } from "@/components/gemstone";
+import { Button } from "@/components/ui/button";
 
 /**
  * Open dialog to add new gemstone
