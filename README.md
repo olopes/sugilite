@@ -26,12 +26,13 @@ To search for a gemstone, use the top right input box (type something and press 
 
 Things you may want to cover:
 
-* Ruby version: 3.3.4
+* Ruby version: 3.3.6
 
 * System dependencies
 Install dependencies:
 ```shell
 bundle install
+yarn
 ```
 
 Update dependencies (updates Gemfile.lock):
@@ -39,9 +40,7 @@ Update dependencies (updates Gemfile.lock):
 bundle update
 ```
 
-* Configuration
-
-* Database creation & initialization
+* Database creation & initialization (first run only)
 ```shell
 # creation:
 rails db:migration
@@ -52,6 +51,22 @@ rails db:seed
 # or both in a single shot:
 rails db:setup
 ```
+* Start dev server
+```shell
+bin/dev
+```
+
+Once the server is up, you can open http://localhost:3000 in your browser.
+
+* Docker
+```shell
+# build docker image
+docker build -t sugilite .
+
+# start the container
+docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name sugilite sugilite
+```
+
 
 * How to run the test suite
 ```shell
@@ -84,6 +99,8 @@ rails assets:clobber ; rails webpacker:clobber
 
 ## TODO
 * Drag & drop to upload a photo
-* Search as you type (no need to press ENTER key)
-* Fix some issues regarding webpack config
+* Empty list vs Empty search results
+* Bind keyboard shortcuts to add new gemstone (Ctrl+N), search (Ctrl+K)
+* I18n: backend (rails-i18n), frontend (i18next-react)
+
 
