@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  chem_formula: MyString
-  color: MyString
+  id: 1001
+  name: Sugilite
+  chem_formula: "KNa_2_(Fe, Mn, Al)_2_Li_3_Si_12_O_30_"
+  color: "purple (translucent)"
+  image: "base64:sugilite.png"
 
 two:
-  name: MyString
-  chem_formula: MyString
-  color: MyString
+  id: 1002
+  name: Ruby
+  chem_formula: "Al_2_O_3_:Cr"
+  color: red (translucent)
+  image: "base64:ruby.png"

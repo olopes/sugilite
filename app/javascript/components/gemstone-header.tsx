@@ -1,8 +1,9 @@
+import { useEffect, useMemo } from "react";
+import { Gem } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { QuickSearch } from "@/components/quicksearch";
-import { Gem } from "lucide-react";
-import { useEffect, useMemo } from "react";
 import { AddNewGemstone } from "@/components/gemstone-add";
+import { LanguageToggle } from "@/components/language-toggle";
 
 export function GemstoneHeader({ title }: { title: string }) {
   useEffect(() => {
@@ -11,7 +12,10 @@ export function GemstoneHeader({ title }: { title: string }) {
 
   const transformedTitle = useMemo(() => {
     const parts = title.split("\u{1F48E}");
-    return parts.flatMap((p, i) => [i === 0 ? null : <Gem className="text-sugilite" />, p]);
+    return parts.flatMap((p, i) => [
+      i === 0 ? null : <Gem key={`s${i}`} className="text-sugilite" />,
+      <span key={`t${i}`}>{p}</span>,
+    ]);
   }, [title]);
 
   return (
@@ -23,6 +27,7 @@ export function GemstoneHeader({ title }: { title: string }) {
       <div className="flex justify-end gap-2">
         <AddNewGemstone />
         <ModeToggle />
+        <LanguageToggle />
       </div>
     </header>
   );

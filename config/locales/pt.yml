@@ -27,15 +27,13 @@
 #       "yes": yup
 #       enabled: "ON"
 
-en:
-  hello: "Hello world!"
+pt:
+  hello: "Olá mundo!"
   translation:
-    title: "Sugilite 💎 The gemstone archive"
-    hello: "hello world"
-    system: "System"
-    dark: Dark
-    light: Light
-    toggle theme: Toggle theme
-    toggle language: Toggle language
-  
-
+    title: "Sugilite 💎 O arquivo de pedras preciosas"
+    hello: "olá mundo"
+    system: "Systema"
+    dark: Escuro
+    light: Claro
+    toggle theme: Mudar tema
+    toggle language: Toggle idioma

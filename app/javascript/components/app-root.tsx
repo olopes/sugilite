@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { QuickSearchProvider } from "@/components/quicksearch-provider";
 import { GemstoneHeader } from "@/components/gemstone-header";
 import { GemstoneProvider } from "@/components/gemstone-provider";
+import { LanguageProvider } from "@/components/i18n-provider";
 
 /**
  * Main app component
@@ -14,16 +15,18 @@ import { GemstoneProvider } from "@/components/gemstone-provider";
  */
 function AppRoot({ title }: { title: string }): ReactNode {
   return (
-    <GemstoneProvider>
+    <LanguageProvider>
       <ThemeProvider defaultTheme="system" storageKey="sugilite-ui-theme">
         <TooltipProvider>
-          <QuickSearchProvider>
-            <GemstoneHeader title={title} />
-            <GemstoneApp />
-          </QuickSearchProvider>
+          <GemstoneProvider>
+            <QuickSearchProvider>
+              <GemstoneHeader title={title} />
+              <GemstoneApp />
+            </QuickSearchProvider>
+          </GemstoneProvider>
         </TooltipProvider>
       </ThemeProvider>
-    </GemstoneProvider>
+    </LanguageProvider>
   );
 }
 

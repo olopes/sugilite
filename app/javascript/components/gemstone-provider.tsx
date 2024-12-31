@@ -29,12 +29,8 @@ const initialState: GemstoneProviderState = {
   gemstones: [],
 };
 const initialActionsState: GemstoneActionsProviderState = {
-  refresh: async () => {
-    throw new Error("not implemented");
-  },
-  searchGemstones: async () => {
-    throw new Error("not implemented");
-  },
+  refresh: async () => [],
+  searchGemstones: async () => [],
   addGemstone: async () => {
     throw new Error("not implemented");
   },
