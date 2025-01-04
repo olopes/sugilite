@@ -40,11 +40,11 @@ pt:
     toggle language: Mudar idioma
     toggle language tooltip: "Clique para mudar de idioma (atual: ${current})"
     system language: Idioma de sistema
-    not found: Não foi encontrada nenhuma pedra precisosa.
+    not found: Não foi encontrada nenhuma pedra preciosa.
     empty list: A lista de pedras preciosas está vazia.
     empty list extra: Use o formulário para adicionar uma nova pedra preciosa.
     add gemstone: Adicionar
-    add gemstone tooltip: Clique para adicionar uma nova pedra precisoa
+    add gemstone tooltip: Clique para adicionar uma nova pedra preciosa
     add gemstone title: Nova Pedra Preciosa
     add gemstone description: Introduza os detalhes da pedra preciosa.
     edit gemstone title: Alterar Pedra Preciosa
@@ -57,7 +57,7 @@ pt:
     form delete: Apagar pedra preciosa
     form continue: Continuar
     form name: Nome
-    form name placeholder: Escreva o nome da pedra precisoa
+    form name placeholder: Escreva o nome da pedra preciosa
     form color: Cor
     form color placeholder: Escreva as cores mais comuns
     form formula: Fórmula química
@@ -65,6 +65,15 @@ pt:
     form formula preview: Pré-visualização da fórumula
     form picture placeholder: Escolha a imagem que quer carregar
     form picture tooltip: Clique para carregar uma nova imagem
-    delete gemstone title: Está prestes a apagar a pedra precisosa "${name}"!
-    delete gemstone description: Esta ação é irreversível. Irá remover a pedra precisosa dos nossos servidores de forma permanentemente.
+    delete gemstone title: Está prestes a apagar a pedra preciosa "${name}"!
+    delete gemstone description: Esta ação é irreversível. Irá remover a pedra preciosa dos nossos servidores de forma permanentemente.
     quick search: Pesquisa rápida
+    toast gemstone creating: A guardar...
+    toast gemstone created: Pedra preciosa adicionada!
+    toast gemstone create error: Ocorreu um erro ao adicionar a pedra preciosa.
+    toast gemstone updating: A guardar...
+    toast gemstone updated: Pedra preciosa atualizada!
+    toast gemstone update error: Ocorreu um erro ao atualizar a pedra preciosa.
+    toast gemstone deleting: A apagar...
+    toast gemstone deleted: Pedra preciosa apagada!
+    toast gemstone delete error: Ocorreu um erro ao apagar a pedra preciosa.

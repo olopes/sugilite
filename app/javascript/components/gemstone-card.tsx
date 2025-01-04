@@ -15,6 +15,7 @@ import { useCallback, useState } from "react";
 import { useGemstoneActions } from "@/components/gemstone-provider";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 /**
  * Renders a Gemstone card
@@ -29,20 +30,32 @@ export default function GemstoneCard({ gemstone }: { gemstone: Gemstone }) {
 
   const onSave = useCallback(
     async (gemdata: Gemstone) => {
-      await updateGemstone(gemdata);
+      const gem = await toast
+        .promise(updateGemstone(gemdata), {
+          loading: t("toast gemstone updating"),
+          success: t("toast gemstone updated"),
+          error: t("toast gemstone update error"),
+        })
+        .unwrap();
       setOpen(false);
-      return gemdata;
+      return gem;
     },
-    [updateGemstone]
+    [updateGemstone, t]
   );
 
   const onDelete = useCallback(
-    (gemstone: Gemstone) =>
-      deleteGemstone(gemstone).then((gem) => {
-        setOpen(false);
-        return gem;
-      }),
-    []
+    async (gemstone: Gemstone) => {
+      const gem = await toast
+        .promise(deleteGemstone(gemstone), {
+          loading: t("toast gemstone deleting"),
+          success: t("toast gemstone deleted"),
+          error: t("toast gemstone delete error"),
+        })
+        .unwrap();
+      setOpen(false);
+      return gem;
+    },
+    [t]
   );
 
   return (

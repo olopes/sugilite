@@ -68,4 +68,13 @@ en:
     delete gemstone title: You are about to delete the gemstone "${name}"!
     delete gemstone description: This action cannot be undone. This will permanently delete your gemstone and remove your data from our servers.
     quick search: Quick search
+    toast gemstone creating: Saving...
+    toast gemstone created: Gemstone created!
+    toast gemstone create error: Error creating gemstone.
+    toast gemstone updating: Saving...
+    toast gemstone updated: Gemstone updated!
+    toast gemstone update error: Error updating gemstone.
+    toast gemstone deleting: Deleting...
+    toast gemstone deleted: Gemstone deleted!
+    toast gemstone delete error: Error deleting gemstone.
   

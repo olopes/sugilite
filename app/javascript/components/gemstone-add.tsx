@@ -13,6 +13,7 @@ import GemstoneForm from "@/components/gemstone-form";
 import { Gemstone } from "@/components/gemstone";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 /**
  * Open dialog to add new gemstone
@@ -39,11 +40,17 @@ export function AddNewGemstone() {
 
   const onSave = useCallback(
     async (gemData: Gemstone) => {
-      const gemstone = await addGemstone(gemData);
+      const gemstone = await toast
+        .promise(addGemstone(gemData), {
+          loading: t("toast gemstone creating"),
+          success: t("toast gemstone created"),
+          error: t("toast gemstone create error"),
+        })
+        .unwrap();
       setOpen(false);
       return gemstone;
     },
-    [addGemstone]
+    [addGemstone, t]
   );
 
   return (

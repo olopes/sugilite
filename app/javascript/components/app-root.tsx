@@ -6,6 +6,7 @@ import { QuickSearchProvider } from "@/components/quicksearch-provider";
 import { GemstoneHeader } from "@/components/gemstone-header";
 import { GemstoneProvider } from "@/components/gemstone-provider";
 import { LanguageProvider } from "@/components/i18n-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 /**
  * Main app component
@@ -22,6 +23,7 @@ function AppRoot({}: { title?: string }): ReactNode {
             <QuickSearchProvider>
               <GemstoneHeader />
               <GemstoneApp />
+              <Toaster />
             </QuickSearchProvider>
           </GemstoneProvider>
         </TooltipProvider>

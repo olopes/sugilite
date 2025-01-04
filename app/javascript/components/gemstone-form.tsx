@@ -59,9 +59,7 @@ export default function GemstoneForm({
     async (values: z.infer<typeof formSchema>) => {
       // Do something with the form values.
       // ✅ This will be type-safe and validated.
-      const newGem = await onSave({ ...values, id: gemstone.id } as Gemstone);
-      
-
+      await onSave({ ...values, id: gemstone.id } as Gemstone);
     },
     [gemstone.id]
   );
