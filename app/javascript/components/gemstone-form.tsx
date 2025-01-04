@@ -1,4 +1,4 @@
-import { ChangeEvent, DragEvent, MouseEvent, useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, DragEvent, MouseEvent, useCallback, useRef, useState } from "react";
 import ChemicalFormula from "@/components/chemical-formula";
 import { Gemstone } from "@/components/gemstone";
 import { Image as ImageIcon, Trash2 } from "lucide-react";
