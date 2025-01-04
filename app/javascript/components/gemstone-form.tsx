@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useCallback, useRef } from "react";
+import { ChangeEvent, DragEvent, MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import ChemicalFormula from "@/components/chemical-formula";
 import { Gemstone } from "@/components/gemstone";
 import { Image as ImageIcon, Trash2 } from "lucide-react";
@@ -142,10 +142,10 @@ export default function GemstoneForm({
         <DialogFooter className="gap-2">
           <DialogClose asChild>
             <Button type="button" variant="secondary">
-              {(t("form cancel"))}
+              {t("form cancel")}
             </Button>
           </DialogClose>
-          <Button type={"submit"}>{(t("form save"))}</Button>
+          <Button type={"submit"}>{t("form save")}</Button>
           {onDelete && (
             <div className="absolute left-3">
               <DeleteGemstoneAlert gemstone={gemstone} clickDelete={clickDelete} />
@@ -164,7 +164,9 @@ const ImagePicker = ({
   value: string | null | undefined;
   onChange: (v: string | null | undefined) => void;
 }) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const [dragging, setDragging] = useState(false);
+  const [dragOk, setDragOk] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -173,16 +175,18 @@ const ImagePicker = ({
    *
    * @param {Event} event
    */
-  const onImageChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const input = event.target;
+  const transformImage = useCallback(
+    (file: File) => {
+      if(!file || !file.type.startsWith("image/")) {
+        return;
+      }
       // TODO prevent rescale the scaled image
       // TODO check nulls
       const canvas = canvasRef.current!;
       const ctx = canvas.getContext("2d")!;
       const img = new Image();
       const url = window.URL || window.webkitURL;
-      const src = url.createObjectURL(input.files![0]);
+      const src = url.createObjectURL(file);
 
       img.onload = () => {
         // get the scale
@@ -201,10 +205,53 @@ const ImagePicker = ({
     [onChange]
   );
 
+  /**
+   * Autoscale image when the image changes
+   *
+   * @param {Event} event
+   */
+  const onImageChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      // TODO check nulls
+      transformImage(event.target.files![0]);
+    },
+    [onChange]
+  );
+
   const onOpenImage = () => imageRef.current?.click();
 
+  const handleDrag = useCallback((ev: DragEvent) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    setDragOk(ev.dataTransfer.files.length !== 1 || ev.dataTransfer.files[0].type.startsWith("image/"));
+    if (ev.type === "dragenter" || ev.type === "dragover") {
+      setDragging(true);
+    } else if (ev.type === "dragleave") {
+      setDragging(false);
+    }
+  }, []);
+
+  const handleDrop = useCallback(
+    (ev: DragEvent) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      setDragging(false);
+      if (ev.dataTransfer.files.length !== 1) {
+        return;
+      }
+      transformImage(ev.dataTransfer.files[0]);
+    },
+    [onImageChange]
+  );
+
   return (
-    <div className="flex justify-center flex-1 items-center">
+    <div
+      className={cn("flex justify-center flex-1 items-center", !dragOk && "cursor-not-allowed")}
+      onDragEnter={handleDrag}
+      onDragLeave={handleDrag}
+      onDragOver={handleDrag}
+      onDrop={handleDrop}
+    >
       <div className="hidden">
         <input
           ref={imageRef}
@@ -212,7 +259,7 @@ const ImagePicker = ({
           name="image"
           type="file"
           accept="image/*"
-          placeholder={(t("form picture placeholder"))}
+          placeholder={t("form picture placeholder")}
           onChange={onImageChange}
         />
         <canvas ref={canvasRef} id="image-preview" width="128" height="128"></canvas>
@@ -220,13 +267,17 @@ const ImagePicker = ({
       <Tooltip>
         <TooltipTrigger asChild>
           <div
-            className="border border-transparent cursor-pointer rounded-xl w-40 h-40 hover:opacity-30 overflow-hidden"
+            className={cn(
+              "border border-transparent cursor-pointer rounded-xl w-40 h-40 hover:opacity-30 overflow-hidden",
+              "border-transparent border-4 border-dashed rounded-2xl",
+              dragging && "border-blue-400 bg-blue-200 opacity-30"
+            )}
             onClick={onOpenImage}
           >
             {value ? <img src={value} className="w-full h-full" /> : <ImageIcon className="w-full h-full" />}
           </div>
         </TooltipTrigger>
-        <TooltipContent>{(t("form picture tooltip"))}</TooltipContent>
+        <TooltipContent>{t("form picture tooltip")}</TooltipContent>
       </Tooltip>
     </div>
   );
@@ -241,7 +292,7 @@ const DeleteGemstoneAlert = ({
   className?: string;
   clickDelete: (event: MouseEvent<HTMLElement>) => void;
 }) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <AlertDialog>
@@ -257,17 +308,16 @@ const DeleteGemstoneAlert = ({
             </Button>
           </AlertDialogTrigger>
         </TooltipTrigger>
-        <TooltipContent>{(t("form delete"))}</TooltipContent>
+        <TooltipContent>{t("form delete")}</TooltipContent>
       </Tooltip>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{(t("delete gemstone title", {name: gemstone.name}))}</AlertDialogTitle>
-          <AlertDialogDescription>{(t("delete gemstone description"))}
-          </AlertDialogDescription>
+          <AlertDialogTitle>{t("delete gemstone title", { name: gemstone.name })}</AlertDialogTitle>
+          <AlertDialogDescription>{t("delete gemstone description")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{(t("form cancel"))}</AlertDialogCancel>
-          <AlertDialogAction onClick={clickDelete}>{(t("form continue"))}</AlertDialogAction>
+          <AlertDialogCancel>{t("form cancel")}</AlertDialogCancel>
+          <AlertDialogAction onClick={clickDelete}>{t("form continue")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

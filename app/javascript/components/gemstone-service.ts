@@ -16,7 +16,8 @@ class GemstoneService {
    *
    */
   async loadGemstones(search?: string): Promise<Gemstone[]> {
-    const url = search ? `/gem_stones?q=${encodeURIComponent(search)}` : "/gem_stones";
+    const urlParams = search ? `?q=${encodeURIComponent(search)}` : "";
+    const url = `/gem_stones${urlParams}`;
     try {
       const response = this.validateResponse(await fetch(url));
       const gemstones = (await response.json()) as BackendGem[];

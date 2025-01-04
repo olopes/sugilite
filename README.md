@@ -98,4 +98,4 @@ rails assets:clobber ; rails webpacker:clobber
 * `magick +antialias -density 2048 -background transparent -define 'auto-resize=1024' icon.svg icon.png`
 
 ## TODO
-* Drag & drop to upload a photo
+* Relative root path
