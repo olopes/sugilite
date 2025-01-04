@@ -4,8 +4,11 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { QuickSearch } from "@/components/quicksearch";
 import { AddNewGemstone } from "@/components/gemstone-add";
 import { LanguageToggle } from "@/components/language-toggle";
+import { useTranslation } from "react-i18next";
 
-export function GemstoneHeader({ title }: { title: string }) {
+export function GemstoneHeader() {
+  const {t} = useTranslation();
+  const title = t("title");
   useEffect(() => {
     document.title = title.replace("\u{1F48E}", " \u2013 ");
   }, [title]);

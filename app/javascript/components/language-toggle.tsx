@@ -47,18 +47,18 @@ export function LanguageToggle() {
           </DropdownMenuTrigger>
         </TooltipTrigger>
         <TooltipContent>
-          <div>{availableLanguages[effectiveLanguage!]}</div>
+          <div>{t("toggle language tooltip", { current: availableLanguages[effectiveLanguage!] })}</div>
         </TooltipContent>
       </Tooltip>
       <DropdownMenuContent align="end">
-        {Object.entries(availableLanguages).map(([lng, descr]) => (
+        {Object.entries(availableLanguages).map(([lng, description]) => (
           <DropdownMenuCheckboxItem key={lng} checked={language === lng} onClick={() => setLanguage(lng)}>
-            {descr}
+            {description}
           </DropdownMenuCheckboxItem>
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem checked={language === "system"} onClick={() => setLanguage("system")}>
-          {t("system language")}
+          {i18n.t("system language")}
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>

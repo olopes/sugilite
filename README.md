@@ -99,8 +99,3 @@ rails assets:clobber ; rails webpacker:clobber
 
 ## TODO
 * Drag & drop to upload a photo
-* Empty list vs Empty search results
-* Bind keyboard shortcuts to add new gemstone (Ctrl+N), search (Ctrl+K)
-* I18n: backend (rails-i18n), frontend (i18next-react)
-
-

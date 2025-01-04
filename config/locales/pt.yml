@@ -32,8 +32,39 @@ pt:
   translation:
     title: "Sugilite 💎 O arquivo de pedras preciosas"
     hello: "olá mundo"
-    system: "Systema"
+    system: "Sistema"
     dark: Escuro
     light: Claro
     toggle theme: Mudar tema
-    toggle language: Toggle idioma
+    toggle theme tooltip: Clique para mudar tema
+    toggle language: Mudar idioma
+    toggle language tooltip: "Clique para mudar de idioma (atual: ${current})"
+    system language: Idioma de sistema
+    not found: Não foi encontrada nenhuma pedra precisosa.
+    empty list: A lista de pedras preciosas está vazia.
+    empty list extra: Use o formulário para adicionar uma nova pedra preciosa.
+    add gemstone: Adicionar
+    add gemstone tooltip: Clique para adicionar uma nova pedra precisoa
+    add gemstone title: Nova Pedra Preciosa
+    add gemstone description: Introduza os detalhes da pedra preciosa.
+    edit gemstone title: Alterar Pedra Preciosa
+    edit gemstone description: Modifique os detalhes da pedra preciosa.
+    gemstone name: Nome
+    gemstone color: Cor
+    gemstone formula: Fórmula
+    form save: Guardar
+    form cancel: Cancelar
+    form delete: Apagar pedra preciosa
+    form continue: Continuar
+    form name: Nome
+    form name placeholder: Escreva o nome da pedra precisoa
+    form color: Cor
+    form color placeholder: Escreva as cores mais comuns
+    form formula: Fórmula química
+    form formula placeholder: Escreva a fórmula químima
+    form formula preview: Pré-visualização da fórumula
+    form picture placeholder: Escolha a imagem que quer carregar
+    form picture tooltip: Clique para carregar uma nova imagem
+    delete gemstone title: Está prestes a apagar a pedra precisosa "${name}"!
+    delete gemstone description: Esta ação é irreversível. Irá remover a pedra precisosa dos nossos servidores de forma permanentemente.
+    quick search: Pesquisa rápida

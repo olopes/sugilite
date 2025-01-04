@@ -13,14 +13,14 @@ import { LanguageProvider } from "@/components/i18n-provider";
  * @param  props
  *
  */
-function AppRoot({ title }: { title: string }): ReactNode {
+function AppRoot({}: { title?: string }): ReactNode {
   return (
     <LanguageProvider>
       <ThemeProvider defaultTheme="system" storageKey="sugilite-ui-theme">
         <TooltipProvider>
           <GemstoneProvider>
             <QuickSearchProvider>
-              <GemstoneHeader title={title} />
+              <GemstoneHeader />
               <GemstoneApp />
             </QuickSearchProvider>
           </GemstoneProvider>

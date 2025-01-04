@@ -7,7 +7,7 @@ const PictureBox = forwardRef<HTMLDivElement, ComponentProps<"div"> & { children
     return (
       <div
         className={cn(
-          "drop-shadow-md border border-transparent cursor-pointer rounded-xl w-40 h-40 transition-all overflow-hidden mb-4 hover:mb-0 hover:w-44 hover:h-44 hover:drop-shadow-xl",
+          "cursor-pointer w-fulltransition-all max-h-40 overflow-hidden",
           className
         )}
         ref={ref}

@@ -25,6 +25,15 @@ export interface Gemstone {
    */
   image?: string | null;
 
+  /**
+   * Creation date
+   */
+  readonly createdAt: Date;
+
+  /**
+   * Creation date
+   */
+  readonly updatedAt: Date;
 
 }
 

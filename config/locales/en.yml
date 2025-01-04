@@ -36,6 +36,36 @@ en:
     dark: Dark
     light: Light
     toggle theme: Toggle theme
+    toggle theme tooltip: Click to change theme
     toggle language: Toggle language
+    toggle language tooltip: "Click to change language (current: ${current})"
+    system language: System language
+    not found: Gemstone not found.
+    empty list: Empty gemstone list.
+    empty list extra: Use the form to add a new gemstone.
+    add gemstone: Add Gemstone
+    add gemstone tooltip: Click to add a new Gemstone
+    add gemstone title: Add Gemstone
+    add gemstone description: Enter the gemstone details.
+    edit gemstone title: Edit Gemstone
+    edit gemstone description: Change gemstone details.
+    gemstone name: Name
+    gemstone color: Color
+    gemstone formula: Formula
+    form save: Save
+    form cancel: Cancel
+    form delete: Delete gemstone
+    form continue: Continue
+    form name: Name
+    form name placeholder: Type the gemstone name
+    form color: Color
+    form color placeholder: Type most common colors
+    form formula: Chemical Formula
+    form formula placeholder: Type the chemical formula
+    form formula preview: Formula Preview
+    form picture placeholder: Choose a picture to upload
+    form picture tooltip: Click to upload a new picture
+    delete gemstone title: You are about to delete the gemstone "${name}"!
+    delete gemstone description: This action cannot be undone. This will permanently delete your gemstone and remove your data from our servers.
+    quick search: Quick search
   
-
