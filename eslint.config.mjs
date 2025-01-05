@@ -1,8 +1,11 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
+import { FlatCompat } from '@eslint/eslintrc';
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-import rrr from "eslint-plugin-react-hooks";
+// import pluginReactHooks from "eslint-plugin-react-hooks";
+
+const compat = new FlatCompat();
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -11,5 +14,5 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat["jsx-runtime"],
-  rrr,
+  ...compat.extends('plugin:react-hooks/recommended')
 ];

@@ -14,7 +14,7 @@ import { Toaster } from "@/components/ui/sonner";
  * @param  props
  *
  */
-function AppRoot({}: { title?: string }): ReactNode {
+function AppRoot(): ReactNode {
   return (
     <LanguageProvider>
       <ThemeProvider defaultTheme="system" storageKey="sugilite-ui-theme">

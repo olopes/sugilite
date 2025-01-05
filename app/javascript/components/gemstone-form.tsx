@@ -61,7 +61,7 @@ export default function GemstoneForm({
       // ✅ This will be type-safe and validated.
       await onSave({ ...values, id: gemstone.id } as Gemstone);
     },
-    [gemstone.id]
+    [gemstone.id, onSave]
   );
 
   const clickDelete = useCallback(
@@ -177,7 +177,7 @@ const ImagePicker = ({
    */
   const transformImage = useCallback(
     (file: File) => {
-      if(!file || !file.type.startsWith("image/")) {
+      if (!file || !file.type.startsWith("image/")) {
         return;
       }
       // TODO prevent rescale the scaled image
@@ -215,7 +215,7 @@ const ImagePicker = ({
       // TODO check nulls
       transformImage(event.target.files![0]);
     },
-    [onChange]
+    [transformImage]
   );
 
   const onOpenImage = () => imageRef.current?.click();
@@ -241,7 +241,7 @@ const ImagePicker = ({
       }
       transformImage(ev.dataTransfer.files[0]);
     },
-    [onImageChange]
+    [transformImage]
   );
 
   return (

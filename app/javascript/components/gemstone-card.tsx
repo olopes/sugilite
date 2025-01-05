@@ -55,7 +55,7 @@ export default function GemstoneCard({ gemstone }: { gemstone: Gemstone }) {
       setOpen(false);
       return gem;
     },
-    [t]
+    [deleteGemstone, t]
   );
 
   return (
