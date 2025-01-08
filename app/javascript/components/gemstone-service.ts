@@ -5,10 +5,22 @@ type BackendGem = Omit<Gemstone, "chemFormula" | "createdAt" | "updatedAt"> & {
   created_at: string;
   updated_at: string;
 };
+
 /**
  * REST client to Gemstones API
  */
 class GemstoneService {
+  public static rootPath: string;
+  static {
+    const root = document.getElementById("sugilite-root")?.dataset?.root ?? "";
+    this.rootPath = root.endsWith("/") ? root.substring(0, root.length - 1) : root;
+    console.log("Root path", this.rootPath);
+  }
+
+  private get rootPath(): string {
+    return GemstoneService.rootPath;
+  }
+
   /**
    * List/Query gemstones
    *
@@ -17,7 +29,7 @@ class GemstoneService {
    */
   async loadGemstones(search?: string): Promise<Gemstone[]> {
     const urlParams = search ? `?q=${encodeURIComponent(search)}` : "";
-    const url = `/gem_stones${urlParams}`;
+    const url = `${this.rootPath}/gem_stones${urlParams}`;
     try {
       const response = this.validateResponse(await fetch(url));
       const gemstones = (await response.json()) as BackendGem[];
@@ -54,7 +66,7 @@ class GemstoneService {
       });
 
       const response = this.validateResponse(
-        await fetch("/gem_stones", {
+        await fetch(`${this.rootPath}/gem_stones`, {
           method: "POST",
           mode: "cors", // no-cors, *cors, same-origin
           credentials: "same-origin", // include, *same-origin, omit
@@ -86,7 +98,7 @@ class GemstoneService {
    * @returns {Promise<boolean>} true if the gemstone was deleted, false otherwise
    */
   async deleteGemstone(gemstone: Gemstone): Promise<boolean> {
-    return fetch(`/gem_stones/${gemstone.id}`, {
+    return fetch(`${this.rootPath}/gem_stones/${encodeURIComponent(gemstone.id!)}`, {
       method: "DELETE",
       mode: "cors", // no-cors, *cors, same-origin
       credentials: "same-origin", // include, *same-origin, omit
@@ -118,7 +130,7 @@ class GemstoneService {
       });
 
       this.validateResponse(
-        await fetch(`/gem_stones/${gemstone.id}`, {
+        await fetch(`${this.rootPath}/gem_stones/${encodeURIComponent(gemstone.id!)}`, {
           method: "PUT",
           mode: "cors", // no-cors, *cors, same-origin
           credentials: "same-origin", // include, *same-origin, omit

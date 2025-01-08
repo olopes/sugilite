@@ -1,1 +1,6 @@
-<div id="sugilite-root" data-controller="sugilite" data-title="<%= @title %>"></div>
+<div
+    id="sugilite-root"
+    data-controller="sugilite"
+    data-title="<%= @title %>"
+    data-root="<%= Rails.application.config.action_controller.relative_url_root || '/' %>"
+></div>

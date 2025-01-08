@@ -2,6 +2,7 @@ export { useTranslation } from "react-i18next";
 import { I18nextProvider } from "react-i18next";
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import i18n from "@/lib/i18n";
+import GemstoneService from "@/components/gemstone-service";
 
 type Language = "system" | string;
 
@@ -37,7 +38,7 @@ export function LanguageProvider({
   const [availableLanguages, setAvailableLanguages] = useState<Record<string, string> | null>(null);
 
   useEffect(() => {
-    fetch("/locales")
+    fetch(`${GemstoneService.rootPath}/locales`)
       .then((resp) => resp.json())
       .then(setAvailableLanguages);
   }, []);
