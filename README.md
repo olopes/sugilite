@@ -64,7 +64,7 @@ Once the server is up, you can open http://localhost:3000 in your browser.
 docker build -t sugilite .
 
 # start the container
-docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name sugilite sugilite
+docker run -d -p 80:80 -e RAILS_MASTER_KEY=`cat config/master.key` --name sugilite sugilite
 ```
 
 * Alternatively, with docker compose
