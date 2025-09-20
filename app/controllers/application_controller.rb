@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     def render_unsupported_version
       headers["API-Version-Supported"] = "false"
       respond_to do |format|
-        format.json { render json: { message: "You requested an unsupported version (#{request_version})" }, status: :unprocessable_entity }
+        format.json { render json: { message: "You requested an unsupported version (#{request_version})" }, status: :unprocessable_content }
       end
     end
 end
