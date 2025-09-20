@@ -39,3 +39,7 @@
 /node_modules
 
 /.vscode
+
+# Ignore test keys. Best practice, even thou is self signed.
+/nginx/localhost.crt
+/nginx/localhost.key

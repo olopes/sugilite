@@ -9,6 +9,14 @@ fi
 # If running the rails server then create or migrate existing database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
   ./bin/rails db:prepare
+
+  # Check if the volume shared between rails app and nginx is mounted
+  mount | grep -q /srv/nginx
+  if [[ $? = 0 ]]; then
+    echo "Copying assets..."
+    rsync -ak --delete public/ /srv/nginx
+  fi
+
 fi
 
 exec "${@}"

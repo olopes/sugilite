@@ -49,3 +49,12 @@
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*
+/compose.yaml
+/docker-compose.yml
+/docker-compose.yaml
+
+# Ignore nginx config
+/nginx/
+
+# Ignore the README file
+/README.md

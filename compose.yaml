@@ -1,0 +1,68 @@
+services:
+  app:
+    build: .
+    environment:
+      - RAILS_MASTER_KEY
+    volumes:
+      - sugilite-db:/rails/storage
+      - sugilite-static-files:/srv/nginx
+      # eventually map a customized /rails/config/credentials.yml.enc ?
+    command: ["./bin/rails", "server"]
+    networks:
+      - sugilite-network
+    restart: unless-stopped
+    healthcheck:
+      test: "curl -f http://localhost:3000/up"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 128M
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - SERVER_NAME=localhost
+    volumes:
+      - sugilite-static-files:/usr/share/nginx/html:ro
+      - ./nginx/default.conf:/etc/nginx/templates/default.conf.template:ro
+      # Test certificates
+      - ./nginx/localhost.crt:/etc/nginx/certs/fullchain.pem:ro
+      - ./nginx/localhost.key:/etc/nginx/certs/privkey.pem:ro
+    depends_on:
+      - app
+    restart: always
+    networks:
+      - sugilite-network
+    healthcheck:
+      test: "curl -f http://localhost/health"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 128M
+
+networks:
+  sugilite-network:
+    driver: bridge
+
+volumes:
+  # Must create the volume manually. Eg: `docker volume create sugilite-db`
+  sugilite-db:
+    external: true
+  sugilite-static-files:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      # size: 16M   # quotas not enabled
+      o: noexec,uid=1000,gid=1000  # user/group set in the app's Dockerfile  

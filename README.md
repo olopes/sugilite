@@ -67,6 +67,22 @@ docker build -t sugilite .
 docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name sugilite sugilite
 ```
 
+* Alternatively, with docker compose
+```shell
+# Regenerate dummy certificates if needed
+openssl req -x509 -out nginx/localhost.crt -keyout nginx/localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+
+# Build and start the application
+RAILS_MASTER_KEY=`cat config/master.key` docker compose up --build
+
+# Simple tests (with --insecure flag to accept the self signed certificate)
+curl http://localhost/health
+curl --insecure https://localhost/health
+curl --insecure https://localhost/up
+```
 
 * How to run the test suite
 ```shell
