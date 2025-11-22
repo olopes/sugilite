@@ -32,7 +32,7 @@ Things you may want to cover:
 Install dependencies:
 ```shell
 bundle install
-yarn
+bun i
 ```
 
 Update dependencies (updates Gemfile.lock):
