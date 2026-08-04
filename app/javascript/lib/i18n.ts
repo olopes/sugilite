@@ -22,9 +22,12 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     backend: {
-      loadPath: GemstoneService.rootPath + "/locales/${lng}/${ns}.json",
+      loadPath: `${GemstoneService.rootPath}/locales/{{lng}}/{{ns}}.json`,
     },
     fallbackLng: "en",
+    supportedLngs: ["en", "pt"],
+    nonExplicitSupportedLngs: true,
+    defaultNS: "translation",
     // debug: true,
 
     interpolation: {
